@@ -1,0 +1,131 @@
+<view class="recommendContainer">
+  <view class="header">
+    <image src="/static/images/recommendSong/recommendSong.jpg"></image>
+    <view class="date">
+      <text class="day">27 /</text>
+      <text class="month">12</text>
+    </view>
+  </view>
+
+  <!-- 推荐列表 -->
+  <view class="recommendList">
+    <view class="listHeader">
+      <text class="playAll">播放全部</text>
+      <text class="changeMore">多选</text>
+    </view>
+
+    <!-- 音乐列表 -->
+    <scroll-view class="scrollView" scroll-y>
+      <view class="recommendItem">
+        <image src="/static/images/nvsheng.jpg"></image>
+        <view class="musicContent">
+          <text class="musicName">醉清风</text>
+          <text class="author">弦子</text>
+        </view>
+        <view class="radio">
+          <text class="iconfont icon-gengduo"></text>
+        </view>
+      </view>
+      <view class="recommendItem">
+        <image src="/static/images/nvsheng.jpg"></image>
+        <view class="musicContent">
+          <text class="musicName">醉清风</text>
+          <text class="author">弦子</text>
+        </view>
+        <view class="radio">
+          <text class="iconfont icon-gengduo"></text>
+        </view>
+      </view>
+      <view class="recommendItem">
+        <image src="/static/images/nvsheng.jpg"></image>
+        <view class="musicContent">
+          <text class="musicName">醉清风</text>
+          <text class="author">弦子</text>
+        </view>
+        <view class="radio">
+          <text class="iconfont icon-gengduo"></text>
+        </view>
+      </view>
+      <view class="recommendItem">
+        <image src="/static/images/nvsheng.jpg"></image>
+        <view class="musicContent">
+          <text class="musicName">醉清风</text>
+          <text class="author">弦子</text>
+        </view>
+        <view class="radio">
+          <text class="iconfont icon-gengduo"></text>
+        </view>
+      </view>
+      <view class="recommendItem">
+        <image src="/static/images/nvsheng.jpg"></image>
+        <view class="musicContent">
+          <text class="musicName">醉清风</text>
+          <text class="author">弦子</text>
+        </view>
+        <view class="radio">
+          <text class="iconfont icon-gengduo"></text>
+        </view>
+      </view>
+      <view class="recommendItem">
+        <image src="/static/images/nvsheng.jpg"></image>
+        <view class="musicContent">
+          <text class="musicName">醉清风</text>
+          <text class="author">弦子</text>
+        </view>
+        <view class="radio">
+          <text class="iconfont icon-gengduo"></text>
+        </view>
+      </view>
+      <view class="recommendItem">
+        <image src="/static/images/nvsheng.jpg"></image>
+        <view class="musicContent">
+          <text class="musicName">醉清风</text>
+          <text class="author">弦子</text>
+        </view>
+        <view class="radio">
+          <text class="iconfont icon-gengduo"></text>
+        </view>
+      </view>
+      <view class="recommendItem">
+        <image src="/static/images/nvsheng.jpg"></image>
+        <view class="musicContent">
+          <text class="musicName">醉清风</text>
+          <text class="author">弦子</text>
+        </view>
+        <view class="radio">
+          <text class="iconfont icon-gengduo"></text>
+        </view>
+      </view>
+      <view class="recommendItem">
+        <image src="/static/images/nvsheng.jpg"></image>
+        <view class="musicContent">
+          <text class="musicName">醉清风</text>
+          <text class="author">弦子</text>
+        </view>
+        <view class="radio">
+          <text class="iconfont icon-gengduo"></text>
+        </view>
+      </view>
+      <view class="recommendItem">
+        <image src="/static/images/nvsheng.jpg"></image>
+        <view class="musicContent">
+          <text class="musicName">醉清风</text>
+          <text class="author">弦子</text>
+        </view>
+        <view class="radio">
+          <text class="iconfont icon-gengduo"></text>
+        </view>
+      </view>
+      <view class="recommendItem">
+        <image src="/static/images/nvsheng.jpg"></image>
+        <view class="musicContent">
+          <text class="musicName">醉清风</text>
+          <text class="author">弦子</text>
+        </view>
+        <view class="radio">
+          <text class="iconfont icon-gengduo"></text>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+</view>
