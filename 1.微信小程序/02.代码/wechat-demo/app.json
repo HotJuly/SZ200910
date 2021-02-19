@@ -1,0 +1,7 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/log/log"
+  ],
+  "sitemapLocation": "sitemap64.json"
+}

@@ -1,0 +1,15 @@
+/* pages/index/index.wxss */
+.indexContainer{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  background:pink;
+  height:100%;
+}
+
+.avatarImg{
+  width:375rpx;
+  height:375rpx;
+  border-radius: 50%;
+}
