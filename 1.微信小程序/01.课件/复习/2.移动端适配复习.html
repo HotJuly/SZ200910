@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- <meta name="viewport" content="width=device-width"> -->
+    <!-- initial-scale= 375/750 = (设备独立像素宽度/布局视口宽度) =0.5 -->
+    <!-- <meta name="viewport" content="initial-scale=2.0"> -->
+    <!-- 
+        viewport适配,对当前的布局视口进行缩放
+        <meta name="viewport" content="initial-scale=1.104,user-scalable=no">
+     -->
+    <meta name="viewport" content="width=device-width,user-scalable=no">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        img{
+            /* 
+                vw和vh  ->  CSS3
+                    vw:100vw=屏幕宽度
+                    vh:100vh=屏幕高度
+            width:187px;
+            height:187px; */
+            font-size:18px;
+            width:8rem;
+            height:8rem;
+        }
+    </style>
+</head>
+<body>
+    <div style="width:200px;">
+        <img src="./1.jpg" alt="">
+    </div>
+    <script>
+        // 得到布局视口宽度->视觉视口
+        var htmlWidth = document.documentElement.clientWidth;
+        var width = htmlWidth/16;
+
+        // 将屏幕百分之十的宽度,设置给html字体大小
+        document.documentElement.style.fontSize=width+"px";
+        console.log(width)
+    </script>
+</body>
+</html>
