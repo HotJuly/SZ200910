@@ -9,6 +9,14 @@ Page({
     className:"a1"
   },
 
+  handleChildren(){
+    console.log('handleChildren')
+  },
+
+  handleParent() {
+    console.log('handleParent')
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
