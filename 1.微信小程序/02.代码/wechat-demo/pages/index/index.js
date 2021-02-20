@@ -11,10 +11,23 @@ Page({
 
   handleChildren(){
     console.log('handleChildren')
+    wx.navigateTo({
+      url: '/pages/log/log'
+    })
+
+    // wx.redirectTo({
+    //   url: '/pages/log/log'
+    // })
   },
 
   handleParent() {
     console.log('handleParent')
+  },
+
+  changeData(){
+    this.setData({
+      msg:"我是修改之后的数据"
+    })
   },
 
   /**
@@ -24,14 +37,16 @@ Page({
     // console.log('msg',this.data.msg);
     // console.log('this',this)
     // this.data.msg="我是修改之后的数据"
-    this.setData({
-      msg:"我是修改之后的数据1"
-    })
-    console.log('1', this.data.msg)
-    this.setData({
-      msg: "我是修改之后的数据2"
-    })
-    console.log('2', this.data.msg)
+    // this.setData({
+    //   msg:"我是修改之后的数据1"
+    // })
+    // console.log('1', this.data.msg)
+    // this.setData({
+    //   msg: "我是修改之后的数据2"
+    // })
+    // console.log('2', this.data.msg)
+    // console.log('window', window)
+    // console.log('wx', wx)
   },
 
   /**

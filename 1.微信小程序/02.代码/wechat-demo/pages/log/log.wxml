@@ -1,2 +1,2 @@
 <!--pages/log/log.wxml-->
-<text>pages/log/log.wxml</text>
+<view bindtap="toIndex">pages/log/log.wxml {{msg2}}</view>
