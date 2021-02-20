@@ -1,6 +1,15 @@
 <view class="indexContainer">
-  <image class="avatarImg {{className}}" src="/static/images/nvsheng.jpg"></image>
-  <text class="username" bindtap="changeData">你好,{{msg}}</text>
+  <button 
+  wx:if="{{!userInfo.avatarUrl}}"
+  open-type="getUserInfo"
+  bindgetuserinfo="getuserinfo"
+  >获取用户信息</button>
+  <image
+  wx:else
+  class="avatarImg {{className}}" 
+  src="{{userInfo.avatarUrl}}"></image>
+  <text class="username" bindtap="changeData">你好,{{userInfo.nickName}}</text>
+  <open-data type="userAvatarUrl"></open-data>
   <!-- <view bindtap="handleParent">
     <button class="info" catchtap="handleChildren">欢迎来到尚硅谷</button>
   </view> -->

@@ -6,7 +6,8 @@ Page({
    */
   data: {
     msg:"我是初始化数据",
-    className:"a1"
+    className:"a1",
+    userInfo:{}
   },
 
   handleChildren(){
@@ -28,6 +29,16 @@ Page({
     this.setData({
       msg:"我是修改之后的数据"
     })
+  },
+
+  getuserinfo(event){
+    // console.log('getuserinfo', event.detail);
+    let { rawData, userInfo } = event.detail;
+    if(rawData){
+      this.setData({
+        userInfo
+      })
+    }
   },
 
   /**

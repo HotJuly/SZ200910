@@ -1,0 +1,8 @@
+1.点击按钮弹出授权窗口
+	button标签属性open-type,值为getUserInfo
+
+2.获取用户授权数据
+	绑定getuserinfo事件,在形参中获取用户信息(event.detail.userInfo)
+
+3.在页面上动态渲染
+	将获取到的数据,更新到data中即可
