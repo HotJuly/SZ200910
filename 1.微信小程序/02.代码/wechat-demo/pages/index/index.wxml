@@ -9,7 +9,7 @@
   class="avatarImg {{className}}" 
   src="{{userInfo.avatarUrl}}"></image>
   <text class="username" bindtap="changeData">你好,{{userInfo.nickName}}</text>
-  <open-data type="userAvatarUrl"></open-data>
+  <!-- <open-data type="userAvatarUrl"></open-data> -->
   <!-- <view bindtap="handleParent">
     <button class="info" catchtap="handleChildren">欢迎来到尚硅谷</button>
   </view> -->

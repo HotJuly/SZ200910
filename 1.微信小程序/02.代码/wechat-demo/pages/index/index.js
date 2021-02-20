@@ -58,6 +58,14 @@ Page({
     // console.log('2', this.data.msg)
     // console.log('window', window)
     // console.log('wx', wx)
+    wx.getUserInfo({
+      success:({userInfo})=>{
+        // console.log('success', userInfo)
+        this.setData({
+          userInfo
+        })
+      }
+    })
   },
 
   /**

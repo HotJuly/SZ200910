@@ -1,0 +1,6 @@
+1.获取用户信息(在用户已经授权过之后)
+	wx.getUserInfo({
+		success:(detail)=>{}
+	})
+
+2.更新到data中,动态渲染
