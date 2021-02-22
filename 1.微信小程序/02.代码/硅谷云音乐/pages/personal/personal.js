@@ -5,7 +5,38 @@ Page({
    * 页面的初始数据
    */
   data: {
+    moveDistance:0
+  },
+  handleTouchStart(event){
+    /*
+      changedTouches
+        记录当前屏幕上正在发生变化的手指
+      touches
+        记录当前屏幕上所有的手指
+    */
+    this.startY = event.touches[0].clientY;
+    this.setData({
+     moveTransition:"none" 
+    })
+    // console.log('handleTouchStart', event.touches[0].clientY)
+  },
+  handleTouchMove(event) {
+    let moveY = event.touches[0].clientY;
+    // console.log('handleTouchMove', event.touches[0].clientY)
+    let moveDistance = moveY-this.startY;
+    if(moveDistance>0&&moveDistance<80){
+      this.setData({
+        moveDistance
+      })
+    }
+    // console.log(moveDistance)
+  },
 
+  handleTouchEnd(){
+    this.setData({
+      moveDistance:0,
+      moveTransition: "transform 400ms" 
+    })
   },
 
   /**
