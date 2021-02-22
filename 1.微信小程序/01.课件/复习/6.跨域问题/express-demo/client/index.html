@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <label for="#username">用户名:</label>
+    <input type="text" id="username">
+    <br>
+    <label for="#password">密码:</label>
+    <input type="text" id="password">
+    <br>
+    <button id="btn">注册</button>
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.1.0/axios.min.js"></script>
+    <script>
+        //收集用户输入数据
+        let usernameInput=document.querySelector('#username');
+        let passwordInput=document.querySelector('#password');
+        let btn = document.querySelector('#btn');
+        //需求:当用户点击注册按钮时,获取用户输入数据,进行前台表单验证,发送注册请求
+        btn.onclick=function(){
+            let username=usernameInput.value;
+            let password=passwordInput.value;
+            console.log(username,password)
+            //当用户数据去除头尾空格之后,没有东西,就不发送请求
+            if(!username.trim()||!password.trim()){
+                console.log('帐号或密码不符合要求');
+                return;
+            }
+
+            // axios.post(url,请求体对象)
+            axios.post('http://localhost:5000/register',{username,password});
+
+        }
+        // console.log(axios)
+    </script>
+</body>
+</html>

@@ -8,7 +8,8 @@ Page({
    */
   data: {
     banners:[],
-    recommendList:[]
+    recommendList:[],
+    topList:[]
   },
 
   /**
@@ -62,6 +63,28 @@ Page({
         recommendList: result
       })
     })
+
+    let topListArr=[6,8,12,30];
+    let index=0;
+    let topList = [];
+
+    while(index<topListArr.length){
+      let topData = ajax('/top/list', { idx: topListArr[index++] });
+      topData.then(({ playlist: { name, tracks } }) => {
+        let data = {
+          name,
+          tracks
+        };
+        topList.push(data)
+        this.setData({
+          topList
+        })
+        // console.log('res', data)
+        // this.setData({
+        //   recommendList: result
+        // })
+      })
+    }
     // Proimse.all([])
 
     // let { banners} =await ajax('/banner', { type: 2 }, "GET");

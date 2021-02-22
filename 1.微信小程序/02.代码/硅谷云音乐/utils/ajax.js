@@ -6,6 +6,10 @@
       1.保留公共代码(重复出现的部分)
       2.提取每次不同的部分
       3.通过形参+实参实现动态传入,谁调用的谁传入
+    封装组件:
+      1.保留公共代码(template+style+javascript)
+      2.提取每次不同的部分
+      3.通过标签属性传递给props,谁使用谁传入
 
 */
 
@@ -19,7 +23,7 @@ export default function (url, data={}, method="GET"){
       data,
       method,
       success: (res) => {
-        console.log('res', res.data);
+        // console.log('res', res.data);
         resolve(res.data);
         // result = res.data;
         // this.setData({

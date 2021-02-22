@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="btn">发送请求</button>
+    <script>
+        // jsonp->通过scirpt标签去获取数据
+        let data;
+        function getData(data){
+            console.log(data)
+            window.data=data
+        }
+        // getData(123)
+        btn.onclick=function(){
+            let script = document.createElement('script');
+            script.src="http://localhost:5000/jsonp?callback=getData"
+            document.body.appendChild(script);
+        }
+    </script>
+</body>
+</html>
