@@ -6,14 +6,39 @@ Page({
    * 页面的初始数据
    */
   data: {
-    
+    banners:[]
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+    /*
+      1.在哪发
+        onLoad
+      2.往哪发
+        查阅API文档
+          1.url
+          2.method
+          3.参数
+      3.怎么发
+        wx.request
+    */
+    console.log('1',1)
+    wx.request({
+      url:"http://localhost:3000/banner",
+      data:{
+        type:2
+      },
+      success:(res)=>{
+        console.log('res',res.data)
+        this.setData({
+          banners:res.data.banners
+        })
+      }
+    })
+
+    console.log('2', 2)
   },
 
   /**

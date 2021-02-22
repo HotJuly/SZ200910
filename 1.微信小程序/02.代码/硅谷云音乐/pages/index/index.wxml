@@ -3,14 +3,11 @@
   indicator-color="ivory"
   indicator-active-color="#d43c33"
   circular>
-    <swiper-item>
-      <image  class="bannerImg" src="/static/images/nvsheng.jpg"></image>
-    </swiper-item>
-    <swiper-item>
-      <image  class="bannerImg" src="/static/images/nvsheng.jpg"></image>
-    </swiper-item>
-    <swiper-item>
-      <image  class="bannerImg" src="/static/images/nvsheng.jpg"></image>
+    <swiper-item wx:for="{{banners}}"
+     wx:key="pic"
+     wx:for-item="banner"
+     >
+      <image  class="bannerImg" src="{{banner.pic}}"></image>
     </swiper-item>
   </swiper>
 
