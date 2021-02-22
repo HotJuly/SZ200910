@@ -1,18 +1,20 @@
 // index.js
 // 获取应用实例
+import ajax from '../../utils/ajax.js';
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    banners:[]
+    banners:[],
+    recommendList:[]
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad:async function (options) {
     /*
       1.在哪发
         onLoad
@@ -24,21 +26,53 @@ Page({
       3.怎么发
         wx.request
     */
-    console.log('1',1)
-    wx.request({
-      url:"http://localhost:3000/banner",
-      data:{
-        type:2
-      },
-      success:(res)=>{
-        console.log('res',res.data)
-        this.setData({
-          banners:res.data.banners
-        })
-      }
+    // wx.request({
+    //   url:"http://localhost:3000/banner",
+    //   data:{
+    //     type:2
+    //   },
+    //   success:(res)=>{
+    //     console.log('res',res.data)
+    //     this.setData({
+    //       banners:res.data.banners
+    //     })
+    //   }
+    // })
+    // wx.request({
+    //   url: "http://localhost:3000/personalized",
+    //   success: (res) => {
+    //     console.log('res', res.data)
+    //     // this.setData({
+    //     //   banners: res.data.banners
+    //     // })
+    //   }
+    // })
+    let result = ajax('/banner',{type:2},"GET");
+    result.then(({banners}) => {
+      // console.log('res2', res)
+      this.setData({
+        banners
+      })
     })
 
-    console.log('2', 2)
+    let result2 = ajax('/personalized');
+    result2.then(({ result }) => {
+      // console.log('res2', res)
+      this.setData({
+        recommendList: result
+      })
+    })
+    // Proimse.all([])
+
+    // let { banners} =await ajax('/banner', { type: 2 }, "GET");
+    // this.setData({
+    //   banners
+    // })
+
+    // let { result} =await ajax('/personalized');
+    // this.setData({
+    //   recommendList: result
+    // })
   },
 
   /**

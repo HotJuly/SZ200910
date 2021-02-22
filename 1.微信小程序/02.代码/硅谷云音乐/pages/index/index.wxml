@@ -44,34 +44,10 @@
       </view>
     </view>
     <scroll-view class="recommendScroll" enable-flex scroll-x>
-      <view class="scrollItem">
-        <image class="songImg" src="/static/images/nvsheng.jpg"></image>
+      <view class="scrollItem" wx:for="{{recommendList}}" wx:key="id">
+        <image class="songImg" src="{{item.picUrl}}"></image>
         <view class="songTitle">
-          骚杨最骚骚杨最骚骚杨最骚骚杨最骚骚杨最骚骚杨最骚骚杨最骚骚杨最骚骚杨最骚骚杨最骚
-        </view>
-      </view>
-      <view class="scrollItem">
-        <image class="songImg" src="/static/images/nvsheng.jpg"></image>
-        <view class="songTitle">
-          骚杨最骚骚杨最骚骚杨最骚骚杨最骚骚杨最骚骚杨最骚骚杨最骚骚杨最骚骚杨最骚骚杨最骚
-        </view>
-      </view>
-      <view class="scrollItem">
-        <image class="songImg" src="/static/images/nvsheng.jpg"></image>
-        <view class="songTitle">
-          骚杨最骚骚杨最骚骚杨最骚骚杨最骚骚杨最骚骚杨最骚骚杨最骚骚杨最骚骚杨最骚骚杨最骚
-        </view>
-      </view>
-      <view class="scrollItem">
-        <image class="songImg" src="/static/images/nvsheng.jpg"></image>
-        <view class="songTitle">
-          骚杨最骚骚杨最骚骚杨最骚骚杨最骚骚杨最骚骚杨最骚骚杨最骚骚杨最骚骚杨最骚骚杨最骚
-        </view>
-      </view>
-      <view class="scrollItem">
-        <image class="songImg" src="/static/images/nvsheng.jpg"></image>
-        <view class="songTitle">
-          骚杨最骚骚杨最骚骚杨最骚骚杨最骚骚杨最骚骚杨最骚骚杨最骚骚杨最骚骚杨最骚骚杨最骚
+          {{item.name}}
         </view>
       </view>
     </scroll-view>
