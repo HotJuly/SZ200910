@@ -26,3 +26,76 @@
   line-height:100rpx;
   margin:20rpx 0;
 }
+
+.recommendContainer{
+  margin:0 20rpx;
+  padding-top:30rpx;
+}
+
+/* .header{
+  margin:0 20rpx;
+} */
+
+.header .title{
+  font-size:28rpx;
+  color:rgba(0,0,0,0.9);
+}
+
+.header .content{
+  /* 开启BFC(块级格式化上下文)
+    1.overflow只要不是默认值都会开启
+    2.display:flex/inline-block/table/table-cell
+    3.float:left或者right
+    4.position:absolute和fixed
+    5.根元素html
+  */
+
+  overflow:hidden;
+}
+
+.header .content .moreTitle{
+  float:left;
+  font-size:30rpx;
+}
+
+.header .content .more{
+  float:right;
+  border:1rpx solid;
+  border-radius: 15rpx;
+  font-size:20rpx;
+  padding:10rpx 20rpx;
+}
+
+.recommendContainer .recommendScroll{
+  display:flex;
+  margin-top:20rpx;
+}
+
+.recommendContainer .recommendScroll .scrollItem{
+  width:200rpx;
+  flex-shrink:0;
+  margin-right:20rpx;
+}
+
+.recommendContainer .recommendScroll .scrollItem .songImg{
+  width:100%;
+  height:200rpx;
+  border-radius: 20rpx;
+}
+
+.recommendContainer .recommendScroll .scrollItem .songTitle{
+  /* 
+    单行文本溢出隐藏,并显示省略号 
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  */
+
+  /* webkit内核的盒模型 */
+  display:-webkit-box;
+  /* 用于设置几行时候溢出隐藏,并实现省略号 */
+  -webkit-line-clamp:2;
+  /* 用于告知当前文本的排列方向 */
+  -webkit-box-orient: vertical;
+  overflow:hidden;
+}
