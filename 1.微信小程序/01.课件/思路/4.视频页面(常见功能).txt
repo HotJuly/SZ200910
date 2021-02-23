@@ -1,0 +1,23 @@
+需求:当用户下拉的时候,重新请求数据
+拆解需求:
+	1.当用户下拉的时候
+		绑定事件监听
+		问题:当前scroll-view没有下拉刷新的动画,需要开启
+		注意:小程序的页面和scroll-view都可以开启下拉刷新动画
+			小程序页面->app.json->window->enablePullDownRefresh:true
+		解决:添加标签属性refresher-enabled
+			but问题二:动画效果不会回退
+			问题三:绑定的事件名称
+			解决:在scroll-view组件文档中可以找到
+	2.重新请求数据
+		使用getVideoList去请求最新数据
+
+
+需求:当用户上拉触底的时候,加载更多数据
+拆解:
+	1.当用户上拉触底的时候
+		监听用户上拉触底,事件名scrolltolower
+	2.加载更多数据
+		由于没有接口,只能使用假数据(实现节流);
+
+routes

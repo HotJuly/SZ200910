@@ -1,14 +1,15 @@
 {
   "pages": [
+    "pages/video/video",
     "pages/personal/personal",
     "pages/login/login",
-    "pages/index/index",
-    "pages/video/video"
+    "pages/index/index"
   ],
   "window": {
     "navigationBarBackgroundColor": "#d43c33",
     "navigationBarTitleText": "硅谷音乐",
-    "navigationBarTextStyle": "white"
+    "navigationBarTextStyle": "white",
+    "enablePullDownRefresh":true
   },
   "tabBar": {
     "color": "#333",

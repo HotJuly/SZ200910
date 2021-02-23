@@ -8,7 +8,8 @@ Page({
    */
   data: {
     navList:[],
-    navId:null
+    navId:null,
+    triggered:false
   },
 
   async changeId(event){
@@ -42,6 +43,32 @@ Page({
     this.setData({
       videoList
     })
+  },
+
+  // 用于处理scroll-view组件下拉刷新操作
+  async handlePullDown(){
+    console.log('handlePullDown')
+
+    wx.showLoading({
+      title: "加载中,请稍后"
+    })
+
+    await this.getVideoList();
+
+    this.setData({
+      triggered:false
+    })
+
+    wx.hideLoading();
+  },
+
+  handleScrollToLower(){
+    console.log('handleScrollToLower');
+    setTimeout(()=>{
+      this.setData({
+        videoList: [...this.data.videoList, ...this.data.videoList]
+      })
+    },2000)
   },
 
   /**
@@ -106,7 +133,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    console.log('onPullDownRefresh')
   },
 
   /**
