@@ -1,4 +1,5 @@
 // pages/login/login.js
+import ajax from '../../utils/ajax.js'
 Page({
 
   /**
@@ -33,6 +34,47 @@ Page({
       [type]: value
     })
     // console.log('handleChange', event.target.dataset.type)
+  },
+
+  async handleLogin(){
+    let { phone,password } =this.data;
+    /*
+      登陆成功  200
+      账号错误  400
+      密码错误  502
+    */
+    if(phone.trim()&&password.trim()){
+      let result = await ajax('/login/cellphone', {
+        phone,
+        password
+      })
+      if (result.code === 200) {
+        wx.setStorage({
+          key:"userInfo",
+          data: JSON.stringify(result.profile)
+        })
+        wx.showToast({
+          title: "登陆成功",
+          success:()=>{
+            wx.switchTab({
+              url: '/pages/personal/personal'
+            })
+          }
+        })
+
+      } else if (result.code === 400) {
+        wx.showToast({
+          icon: "none",
+          title: "手机号错误,请确认手机号"
+        })
+      } else if (result.code === 502) {
+        wx.showToast({
+          icon: "none",
+          title: "密码错误,请确认密码"
+        })
+      }
+    }
+    
   },
 
   /**

@@ -5,7 +5,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    moveDistance:0
+    moveDistance:0,
+    userInfo:{}
   },
   handleTouchStart(event){
     /*
@@ -38,12 +39,17 @@ Page({
       moveTransition: "transform 400ms" 
     })
   },
+  toLogin(){
+    if(this.data.userInfo.nickname)return;
+    wx.navigateTo({
+      url: '/pages/login/login'
+    })
+  },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
   },
 
   /**
@@ -57,7 +63,15 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    let userInfoStr = wx.getStorageSync("userInfo");
+    console.log(1, userInfoStr)
+    if (userInfoStr) {
+      let userInfo = JSON.parse(userInfoStr);
+      console.log(userInfo)
+      this.setData({
+        userInfo
+      })
+    }
   },
 
   /**
