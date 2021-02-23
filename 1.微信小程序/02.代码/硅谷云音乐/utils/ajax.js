@@ -22,8 +22,22 @@ export default function (url, data={}, method="GET"){
       url: config.host + url,
       data,
       method,
+      header:{
+        cookie:wx.getStorageSync('cookie').toString()
+      },
       success: (res) => {
-        // console.log('res', res.data);
+        // 需要将登陆接口的cookies保留到storage中,每次发送请求,手动携带上
+        // console.log('res', res , url);
+        if(data.isLogin){
+          let cookies = res.cookies;
+          console.log('cookies', cookies)
+          wx.setStorage({
+            key:"cookie",
+            data: cookies.filter(function(item){
+              return item.indexOf('MUSIC_U=') == 0;
+            })
+          })
+        }
         resolve(res.data);
         // result = res.data;
         // this.setData({

@@ -46,8 +46,10 @@ Page({
     if(phone.trim()&&password.trim()){
       let result = await ajax('/login/cellphone', {
         phone,
-        password
+        password,
+        isLogin:true
       })
+      console.log('result', result)
       if (result.code === 200) {
         wx.setStorage({
           key:"userInfo",

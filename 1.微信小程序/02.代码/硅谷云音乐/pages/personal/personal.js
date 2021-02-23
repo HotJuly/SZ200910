@@ -1,4 +1,6 @@
 // pages/personal/personal.js
+import ajax from '../../utils/ajax.js';
+
 Page({
 
   /**
@@ -6,7 +8,8 @@ Page({
    */
   data: {
     moveDistance:0,
-    userInfo:{}
+    userInfo:{},
+    playList:[]
   },
   handleTouchStart(event){
     /*
@@ -21,6 +24,7 @@ Page({
     })
     // console.log('handleTouchStart', event.touches[0].clientY)
   },
+
   handleTouchMove(event) {
     let moveY = event.touches[0].clientY;
     // console.log('handleTouchMove', event.touches[0].clientY)
@@ -39,6 +43,7 @@ Page({
       moveTransition: "transform 400ms" 
     })
   },
+
   toLogin(){
     if(this.data.userInfo.nickname)return;
     wx.navigateTo({
@@ -62,15 +67,27 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: async function () {
     let userInfoStr = wx.getStorageSync("userInfo");
-    console.log(1, userInfoStr)
+    // console.log(1, userInfoStr)
     if (userInfoStr) {
       let userInfo = JSON.parse(userInfoStr);
-      console.log(userInfo)
+      // console.log(userInfo)
       this.setData({
         userInfo
       })
+      let result  = await ajax('/user/record',{
+        uid: userInfo.userId,
+        type:1
+      });
+      result = result.weekData.map(function(item,index){
+        return item.song.al.picUrl
+      })
+      // console.log(result)
+      this.setData({
+        playList: result
+      })
+      // console.log(result)
     }
   },
 
