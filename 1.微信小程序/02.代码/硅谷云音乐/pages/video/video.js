@@ -9,7 +9,8 @@ Page({
   data: {
     navList:[],
     navId:null,
-    triggered:false
+    triggered:false,
+    videoId:null
   },
 
   async changeId(event){
@@ -95,12 +96,24 @@ Page({
 
     // 通过oldVId关闭上一个视频
     if (this.oldVId && id !== this.oldVId) {
-      let videoContext = wx.createVideoContext(this.oldVId);
-      videoContext.pause();
-
+      setTimeout(() => {
+        let videoContext = wx.createVideoContext(this.oldVId);
+        videoContext.pause();
+      },300);
     }
     // 保留当前视频vid
     this.oldVId = id;
+  },
+
+  switchComponent(event){
+    // console.log('switchComponent', event.currentTarget.id)
+    let { id } = event.currentTarget;
+    this.setData({
+      videoId: id
+    })
+
+    // let videoContext = wx.createVideoContext(id);
+    // videoContext.play();
   },
 
   /**
@@ -187,7 +200,39 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function ({from,target}) {
+    /* 区分用户触发转发的操作,对他的操作进行不同的处理
+      1.用户如果点击右上角转发,是想把整个小程序转发
+      2.用户如果点击button转发,是想转发当前页面
 
+      回调函数:
+        1.我们定义的函数
+        2.函数执行了
+        3.我们没有调用过
+
+        同步
+          forEach的参数是一个回调函数
+          Promise的参数是一个回调函数
+        异步
+          定时器,事件回调函数
+    */
+    // console.log('onShareAppMessage', data)
+    if (from === "button") {
+      // 2.用户如果点击button转发, 是想转发当前页面
+      let { dataset: { title, imageurl } } = target;
+      console.log('button', target)
+      return {
+        title,
+        path: "/pages/index/index",
+        imageUrl: imageurl
+      }
+    } else {
+      // 1.用户如果点击右上角转发, 是想把整个小程序转发
+      return {
+        title:"硅谷云音乐",
+        path:"/pages/index/index",
+        imageUrl:"/static/images/nvsheng.jpg"
+      }
+    }
   }
 })
