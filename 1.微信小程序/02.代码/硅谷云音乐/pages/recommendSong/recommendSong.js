@@ -12,6 +12,15 @@ Page({
     recommendList:[]
   },
 
+  toSong(event){
+    // console.log(event.currentTarget.dataset.song)
+    // item整个对象太大了,url有长度限制,没办法完整传递,最终只传递id
+    let songId = event.currentTarget.dataset.songid;
+    wx.navigateTo({
+      url: '/pages/song/song?songId=' + songId,
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
