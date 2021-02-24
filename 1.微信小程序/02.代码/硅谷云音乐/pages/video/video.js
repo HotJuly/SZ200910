@@ -62,13 +62,45 @@ Page({
     wx.hideLoading();
   },
 
+  // 用于处理scroll-view组件上拉触底操作
   handleScrollToLower(){
+    if(this.flag)return;
+    this.flag=true;
     console.log('handleScrollToLower');
     setTimeout(()=>{
       this.setData({
         videoList: [...this.data.videoList, ...this.data.videoList]
-      })
-    },2000)
+      });
+      this.flag=false;
+    },5000)
+  },
+
+  // 用于测试学习视频组件的控制
+  testApi(){
+    // id:E802AB5DDB7544F8CECED6D4BED92CF0
+    console.log('testApi')
+
+    // 获取对应video组件的video上下文对象
+    let videoContext = wx.createVideoContext("E802AB5DDB7544F8CECED6D4BED92CF0");
+
+    // 使用上下文对象的api控制视频暂停
+    videoContext.pause();
+  },
+
+  // 用于监视视频播放状态
+  handlePlay(event){
+    // console.log('handlePlay',this.oldVId)
+    let {id}  = event.currentTarget;
+    // console.log(id)
+
+    // 通过oldVId关闭上一个视频
+    if (this.oldVId && id !== this.oldVId) {
+      let videoContext = wx.createVideoContext(this.oldVId);
+      videoContext.pause();
+
+    }
+    // 保留当前视频vid
+    this.oldVId = id;
   },
 
   /**
@@ -76,14 +108,14 @@ Page({
    */
   onLoad:async function (options) {
     // 请求导航条的内容
-    let navData = await ajax("/video/group/list");
-    this.setData({
-      navList: navData.data.slice(0,14),
-      navId: navData.data[0].id
-    })
+    // let navData = await ajax("/video/group/list");
+    // this.setData({
+    //   navList: navData.data.slice(0,14),
+    //   navId: navData.data[0].id
+    // })
 
-    // 请求视频列表内容
-    this.getVideoList();
+    // // 请求视频列表内容
+    // this.getVideoList();
     // let videoData = await ajax("/video/group",{
     //   id:this.data.navId
     // });
@@ -111,8 +143,17 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow:async function () {
 
+    // 请求导航条的内容
+    let navData = await ajax("/video/group/list");
+    this.setData({
+      navList: navData.data.slice(0, 14),
+      navId: navData.data[0].id
+    })
+
+    // 请求视频列表内容
+    this.getVideoList();
   },
 
   /**
