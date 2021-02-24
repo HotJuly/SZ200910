@@ -1,0 +1,8 @@
+需求:当用户进入video页面时,判断用户是否已经登录,如果没有登录弹出对话框
+拆解:
+	1.当用户进入video页面时
+		onLoad->onShow->onReady
+		使用生命周期onShow监视用户操作
+	2.判断用户是否已经登录
+		判断storage中是否有存在cookie
+	3.弹出对话框

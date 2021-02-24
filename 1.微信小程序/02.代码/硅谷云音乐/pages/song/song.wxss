@@ -1,0 +1,82 @@
+/* pages/song/song.wxss */
+.songContainer{
+  background: rgba(0,0,0,0.5);
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.songContainer .keng{
+  width:60rpx;
+  height:60rpx;
+  background: white;
+  border-radius: 50%;
+  /*
+    z-index生效条件:
+      1.只要是定位都可以
+      2.flex的子元素
+   */
+
+  z-index:100;
+}
+
+.songContainer .needle{
+  position: relative;
+  width:192rpx;
+  height:274rpx;
+  top:-36rpx;
+  left:58rpx;
+  z-index:99;
+  transform:rotateZ(-20deg);
+  transform-origin: 40rpx 0;
+  transition:transform 1s;
+}
+
+.songContainer.isplaying .needle{
+  transform:rotateZ(0deg);
+}
+
+.songContainer .discContainer{
+  position:relative;
+  width:598rpx;
+  height:598rpx;
+  top:-180rpx;
+  z-index:98;
+  animation:move 4s linear infinite;
+  animation-play-state: paused;
+  /* transition:transform 4s; */
+}
+
+@keyframes move{
+  /* from,to */
+  /* 百分比 0%,50%,100% */
+  from{
+    transform:rotateZ(0deg)
+  }
+  to{
+    transform:rotateZ(360deg)
+  }
+}
+
+.songContainer.isplaying .discContainer{
+  animation-play-state: running;
+}
+
+.songContainer .discContainer .disc{
+  position: relative;
+  width:100%;
+  height:100%;
+  z-index:99;
+}
+
+.songContainer .discContainer .bigImg{
+  position:absolute;
+  left:0;
+  right:0;
+  top:0;
+  bottom:0;
+  margin:auto;
+  width:370rpx;
+  height:370rpx;
+  z-index:98;
+}

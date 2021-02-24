@@ -157,16 +157,39 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow:async function () {
+    // 对用户的登录状态进行判断
+    if(wx.getStorageSync("cookie")){
+      // 请求导航条的内容
+      let navData = await ajax("/video/group/list");
+      this.setData({
+        navList: navData.data.slice(0, 14),
+        navId: navData.data[0].id
+      })
 
-    // 请求导航条的内容
-    let navData = await ajax("/video/group/list");
-    this.setData({
-      navList: navData.data.slice(0, 14),
-      navId: navData.data[0].id
-    })
+      // 请求视频列表内容
+      this.getVideoList();
+    }else{
+      // 弹出模态对话框引导用户
+      wx.showModal({
+        title:"请先登录",
+        content:"该功能需要登录账号",
+        confirmText:"去登陆",
+        cancelText:"回到首页",
+        success: ({ confirm , cancel })=>{
+          // console.log('success', confirm, cancel )
+          if(confirm){
+            wx.redirectTo({
+              url: '/pages/login/login'
+            })
+          } else {
+            wx.switchTab({
+              url: '/pages/index/index'
+            })
+          }
+        }
+      })
+    }
 
-    // 请求视频列表内容
-    this.getVideoList();
   },
 
   /**

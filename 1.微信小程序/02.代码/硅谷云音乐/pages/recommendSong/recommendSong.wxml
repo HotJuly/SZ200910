@@ -14,113 +14,16 @@
       <text class="changeMore">多选</text>
     </view>
 
-    <!-- 音乐列表 -->
+        <!-- 音乐列表 -->
     <scroll-view class="scrollView" scroll-y>
-      <view class="recommendItem">
-        <image src="/static/images/nvsheng.jpg"></image>
+      <view class="recommendItem"
+      wx:for="{{recommendList}}" 
+      wx:key="id"
+      >
+        <image src="{{item.album.picUrl}}"></image>
         <view class="musicContent">
-          <text class="musicName">醉清风</text>
-          <text class="author">弦子</text>
-        </view>
-        <view class="radio">
-          <text class="iconfont icon-gengduo"></text>
-        </view>
-      </view>
-      <view class="recommendItem">
-        <image src="/static/images/nvsheng.jpg"></image>
-        <view class="musicContent">
-          <text class="musicName">醉清风</text>
-          <text class="author">弦子</text>
-        </view>
-        <view class="radio">
-          <text class="iconfont icon-gengduo"></text>
-        </view>
-      </view>
-      <view class="recommendItem">
-        <image src="/static/images/nvsheng.jpg"></image>
-        <view class="musicContent">
-          <text class="musicName">醉清风</text>
-          <text class="author">弦子</text>
-        </view>
-        <view class="radio">
-          <text class="iconfont icon-gengduo"></text>
-        </view>
-      </view>
-      <view class="recommendItem">
-        <image src="/static/images/nvsheng.jpg"></image>
-        <view class="musicContent">
-          <text class="musicName">醉清风</text>
-          <text class="author">弦子</text>
-        </view>
-        <view class="radio">
-          <text class="iconfont icon-gengduo"></text>
-        </view>
-      </view>
-      <view class="recommendItem">
-        <image src="/static/images/nvsheng.jpg"></image>
-        <view class="musicContent">
-          <text class="musicName">醉清风</text>
-          <text class="author">弦子</text>
-        </view>
-        <view class="radio">
-          <text class="iconfont icon-gengduo"></text>
-        </view>
-      </view>
-      <view class="recommendItem">
-        <image src="/static/images/nvsheng.jpg"></image>
-        <view class="musicContent">
-          <text class="musicName">醉清风</text>
-          <text class="author">弦子</text>
-        </view>
-        <view class="radio">
-          <text class="iconfont icon-gengduo"></text>
-        </view>
-      </view>
-      <view class="recommendItem">
-        <image src="/static/images/nvsheng.jpg"></image>
-        <view class="musicContent">
-          <text class="musicName">醉清风</text>
-          <text class="author">弦子</text>
-        </view>
-        <view class="radio">
-          <text class="iconfont icon-gengduo"></text>
-        </view>
-      </view>
-      <view class="recommendItem">
-        <image src="/static/images/nvsheng.jpg"></image>
-        <view class="musicContent">
-          <text class="musicName">醉清风</text>
-          <text class="author">弦子</text>
-        </view>
-        <view class="radio">
-          <text class="iconfont icon-gengduo"></text>
-        </view>
-      </view>
-      <view class="recommendItem">
-        <image src="/static/images/nvsheng.jpg"></image>
-        <view class="musicContent">
-          <text class="musicName">醉清风</text>
-          <text class="author">弦子</text>
-        </view>
-        <view class="radio">
-          <text class="iconfont icon-gengduo"></text>
-        </view>
-      </view>
-      <view class="recommendItem">
-        <image src="/static/images/nvsheng.jpg"></image>
-        <view class="musicContent">
-          <text class="musicName">醉清风</text>
-          <text class="author">弦子</text>
-        </view>
-        <view class="radio">
-          <text class="iconfont icon-gengduo"></text>
-        </view>
-      </view>
-      <view class="recommendItem">
-        <image src="/static/images/nvsheng.jpg"></image>
-        <view class="musicContent">
-          <text class="musicName">醉清风</text>
-          <text class="author">弦子</text>
+          <text class="musicName">{{item.name}}</text>
+          <text class="author">{{item.artists[0].name}}</text>
         </view>
         <view class="radio">
           <text class="iconfont icon-gengduo"></text>

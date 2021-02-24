@@ -1,0 +1,9 @@
+<view class="songContainer">
+  <text>TK from 时雨</text>
+  <view class="keng"></view>
+  <image class="needle"src="/static/images/song/needle.png"></image>
+  <view class="discContainer">
+    <image class="disc" src="/static/images/song/disc.png"></image>
+    <image class="bigImg" src="/static/images/nvsheng.jpg"></image>
+  </view>
+</view>
