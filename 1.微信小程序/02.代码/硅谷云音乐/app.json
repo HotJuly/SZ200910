@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/recommendSong/recommendSong",
     "pages/video/video",
     "pages/personal/personal",
     "pages/login/login",
@@ -9,7 +10,7 @@
     "navigationBarBackgroundColor": "#d43c33",
     "navigationBarTitleText": "硅谷音乐",
     "navigationBarTextStyle": "white",
-    "enablePullDownRefresh":true
+    "enablePullDownRefresh": true
   },
   "tabBar": {
     "color": "#333",
