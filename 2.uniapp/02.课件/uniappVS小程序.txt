@@ -1,0 +1,10 @@
+文件对比
+uniapp						小程序
+manifest.json(项目说明书)				project.config.json
+pages.json					app.json+每个页面的json
+main.js+App.vue					app.js+app.wxss
+index.vue						index.js+index.wxss+index.wxml
+
+
+全局对象
+uni						wx

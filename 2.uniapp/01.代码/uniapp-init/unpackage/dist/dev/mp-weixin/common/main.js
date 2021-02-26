@@ -11,12 +11,32 @@
 var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
 var _App = _interopRequireDefault(__webpack_require__(/*! ./App */ 9));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};var ownKeys = Object.keys(source);if (typeof Object.getOwnPropertySymbols === 'function') {ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {return Object.getOwnPropertyDescriptor(source, sym).enumerable;}));}ownKeys.forEach(function (key) {_defineProperty(target, key, source[key]);});}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}
 
+// 关闭Vue开发者工具提示
 _vue.default.config.productionTip = false;
 
+/*
+                                           	在小程序中
+                                           		app.js ->App({})->注册小程序
+                                           		index.js->Page({})->注册页面
+                                           		在uniapp中,没有App和Page函数,无法区分app实例和页面实例
+                                           		mpType ->	mp->mini program
+                                           			type->类型声明
+                                           */
 _App.default.mpType = 'app';
 
+
+//App({})
 var app = new _vue.default(_objectSpread({},
 _App.default));
+
+
+
+
+
+
+
+
+
 
 createApp(app).$mount();
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["createApp"]))
