@@ -1,6 +1,7 @@
 // pages/song/song.js
 import ajax from '../../utils/ajax.js';
 import PubSub from 'pubsub-js'
+import moment from 'moment'
 
 // 调用该方法,可以获得小程序全局唯一的实例
 let appInstance = getApp();
@@ -13,7 +14,10 @@ Page({
     songObj:{},
     songUrl:"",
     songId:null,
-    isPlay:false
+    isPlay:false,
+    currentWidth:0,
+    currentTime:"00:00",
+    durationTime:"--:--"
   },
 
   // 用于处理用户点击播放按钮
@@ -68,10 +72,12 @@ Page({
     })
 
     this.setData({
-      songObj
+      songObj,
+      durationTime: moment(songObj.dt).format("mm:ss")
     })
   },
 
+  // 用于请求歌曲音频地址
   async getSongUrl(){
     let songUrl = await ajax('/song/url', { id: this.data.songId });
     songUrl = songUrl.data[0].url;
@@ -79,6 +85,43 @@ Page({
 
     this.setData({
       songUrl
+    })
+  },
+
+  // 用于绑定背景音频管理器的事件监听
+  addEvent(){
+    // 1.绑定背景音频管理器进度更新事件
+    this.backgroundAudioManager.onTimeUpdate(() => {
+      console.log('onTimeUpdate', this.backgroundAudioManager.currentTime)
+      let currentWidth = this.backgroundAudioManager.currentTime * 1000 * 100 / this.data.songObj.dt;
+      if (this.data.songId === appInstance.globalData.audioId){
+        this.setData({
+          currentWidth,
+          currentTime: moment(this.backgroundAudioManager.currentTime * 1000).format('mm:ss')
+        })
+      }
+    })
+
+    //2.绑定背景音频管理器播放事件
+    this.backgroundAudioManager.onPlay(()=>{
+      // console.log('onPlay')
+      if (this.data.songId === appInstance.globalData.audioId){
+        this.setData({
+          isPlay: true
+        })
+      }
+      appInstance.globalData.playState=true;
+    })
+
+    //3.绑定背景音频管理器暂停事件
+    this.backgroundAudioManager.onPause(() => {
+      // console.log('onPause')
+      if (this.data.songId === appInstance.globalData.audioId) {
+        this.setData({
+          isPlay: false
+        })
+      }
+      appInstance.globalData.playState = false;
     })
   },
 
@@ -141,6 +184,9 @@ Page({
       appInstance.globalData.audioId = this.data.songId+"";
       appInstance.globalData.playState = true;
     })
+
+    // 绑定背景音频管理器所有的事件监听
+    this.addEvent();
 
   },
 

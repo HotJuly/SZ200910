@@ -82,6 +82,34 @@
   z-index:98;
 }
 
+.barContainer{
+  display:flex;
+  align-items: center;
+}
+
+.barContainer .wrap{
+  width:450rpx;
+  height:4rpx;
+  background:rgba(0,0,0,0.4);
+  margin: 0 20rpx;
+}
+
+.barContainer .wrap .inner{
+  position: relative;
+  width:20%;
+  height:100%;
+  background: red;
+}
+
+.barContainer .wrap .inner .point{
+  position: absolute;
+  top:-4rpx;
+  right:-6rpx;
+  width:12rpx;
+  height:12rpx;
+  background:white;
+  border-radius: 50%;
+}
 
 /* musicControl */
 .musicControl {
