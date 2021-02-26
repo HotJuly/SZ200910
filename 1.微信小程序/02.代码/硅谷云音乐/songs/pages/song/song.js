@@ -1,5 +1,5 @@
 // pages/song/song.js
-import ajax from '../../utils/ajax.js';
+import ajax from '../../../utils/ajax.js';
 import PubSub from 'pubsub-js'
 import moment from 'moment'
 
@@ -38,6 +38,9 @@ Page({
       // 注意:说是说只要src,但是其实还要title
       this.backgroundAudioManager.src = this.data.songUrl;
       this.backgroundAudioManager.title = this.data.songObj.name;
+
+      // 用于测试自动切歌功能,让歌曲开始时间调到260s
+      // this.backgroundAudioManager.startTime=260;
 
       appInstance.globalData.audioId = this.data.songId;
       appInstance.globalData.playState = true;
@@ -92,7 +95,7 @@ Page({
   addEvent(){
     // 1.绑定背景音频管理器进度更新事件
     this.backgroundAudioManager.onTimeUpdate(() => {
-      console.log('onTimeUpdate', this.backgroundAudioManager.currentTime)
+      // console.log('onTimeUpdate', this.backgroundAudioManager.currentTime)
       let currentWidth = this.backgroundAudioManager.currentTime * 1000 * 100 / this.data.songObj.dt;
       if (this.data.songId === appInstance.globalData.audioId){
         this.setData({
@@ -122,6 +125,11 @@ Page({
         })
       }
       appInstance.globalData.playState = false;
+    })
+
+    //4.监听背景音频自然播放结束
+    this.backgroundAudioManager.onEnded(()=>{
+      PubSub.publish('switchType', 'next');
     })
   },
 

@@ -1,7 +1,5 @@
 {
   "pages": [
-    "pages/recommendSong/recommendSong",
-    "pages/song/song",
     "pages/index/index",
     "pages/video/video",
     "pages/personal/personal",
@@ -36,6 +34,25 @@
         "selectedIconPath": "/static/images/tabs/tab-my-current.png"
       }
     ]
+  },
+  "subpackages":[
+    {
+      "root":"songs",
+      "name":"xixi",
+      "pages":[
+        "pages/recommendSong/recommendSong",
+        "pages/song/song"
+      ],
+      "independent":true
+    }
+  ],
+  "preloadRule":{
+    "pages/index/index":{
+      "packages":[
+        "xixi"
+      ],
+      "network":"wifi"
+    }
   },
   "requiredBackgroundModes":[
     "audio"

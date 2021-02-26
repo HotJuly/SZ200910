@@ -1,0 +1,33 @@
+# 小程序重点复习day06上午
+
+- 1.使用npm包流程
+  - 1.npm init 生成package.json
+  - 2.npm i pubsub-js 下载依赖包(node_modules文件夹)
+  - 3.详情->本地设置->使用npm模块
+  - 4.在设置->构建npm,将所有node_modules文件夹中的依赖,打包成小程序专用(miniprogram_npm文件夹)
+- 2.使用PubSub实现跨页面通信
+  - 1.订阅方和发布方都必须同时存在
+  - 2.订阅必须在发布之前
+  - 3.订阅(接收数据)
+    - PubSub.subscribe(消息名,回调函数)
+    - 订阅的时候会返回当前订阅的唯一标识token
+  - 4.发布(发送数据)
+    - PubSub.publish(消息名,需要传递的数据)
+  - 5.取消订阅(卸载)
+    - PubSub.unsubscribe(唯一标识token)
+- 3.切换歌曲流程
+  - 1.用户在song页面,点击切换歌曲,通知recommendSong页面,用户点击情况
+  - 2.recommendSong页面根据跳转song页面之前记录的歌曲下标,找到对应的歌曲id
+  - 3.recommendSong页面将找到的id发送给song页面
+  - 4.song页面接收到id,并请求相关数据
+  - 5.所做的事情
+    - recommendSong在onLoad中添加订阅(消息名:switchType)
+    - song页面在onLoad中添加订阅(消息名:'sendSongId'),并在onUnLoad中取消订阅(消息名:'sendSongId')
+    - 当用户点击切换歌曲,song页面在点击事件内部发布订阅消息(消息名:switchType)
+    - recommendSong的订阅接收数据,并发布订阅消息(消息名:'sendSongId')
+- 4.进度条功能实现
+  - 当歌曲进度条状态更新时,重新计算进度条长度,并重新渲染
+    - 歌曲进度条状态更新事件:TimeUpdate
+- 5.解决BUG(多渠道控制音频播放暂停)
+  - 监听歌曲播放,事件名:Play
+  - 监听歌曲暂停,事件名:Pause

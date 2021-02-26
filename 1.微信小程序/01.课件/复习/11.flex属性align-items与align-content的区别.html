@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #wrap{
+            display:flex;
+            width:200px;
+            height:500px;
+            background-color: gray;
+            flex-wrap: wrap;
+            border:1px solid;
+
+            /* 
+                align-items:center 行居中
+                align-content:center 块居中
+             */
+            /* align-items:center; */
+            align-content: center;
+        }
+        .inner{
+            width:150px;
+            height:200px;
+            border:1px solid;
+        }
+        .inner1{
+            background-color: red;
+        }
+        .inner2{
+            background-color: blue;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div class="inner inner1"></div>
+        <div class="inner inner2"></div>
+    </div>
+</body>
+</html>
