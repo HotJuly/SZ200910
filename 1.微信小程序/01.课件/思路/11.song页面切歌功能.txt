@@ -1,0 +1,26 @@
+需求:当用户点击上一首/下一首按钮的时候,自动播放对应的歌曲
+拆解:
+	1.当用户点击上一首/下一首按钮的时候
+		绑定事件监听,事件名tap
+	2.自动播放对应的歌曲
+		问题:如何知道对应的歌曲是哪一首
+		解决:播放顺序是由recommendSong决定的
+		流程一:song页面需要找recommendSong页面获取下一首歌曲id
+			分析:song页面和recommendSong页面同时存在,使用PubSub可以实现跨页面通信
+			问题:
+				订阅方	song页面
+				发布方	recommendSong页面
+			解决:
+				1.在recommendSong找到对应的歌曲id之后,将id发送给song页面
+			
+		流程二:recommendSong页面不知道什么时候song页面需要下一首歌的id
+			需求:当用户点击下一首按钮的时候,通知recommendSong页面,用户点击了下一首
+			问题:
+				订阅方	recommendSong页面
+				发布方	song页面
+			问题:recommendSong页面已经知道要的是上一首歌的数据了,但是当前是哪一首
+			解决:在用户点击歌曲列表,跳转到song页面的之前,保存当前选中的歌曲id
+		过程:
+			1.song页面用户点击下一首(发布消息)
+			2.recommendSong接受到消息,根据用户操作,将对应歌曲的id发送给song页面(发布消息)
+			3.song页面使用最新的songid发送请求,请求数据

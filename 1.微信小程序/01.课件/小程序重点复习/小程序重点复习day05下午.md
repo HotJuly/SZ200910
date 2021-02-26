@@ -1,0 +1,34 @@
+# 小程序重点复习day05下午
+
+- 1.弹出模态对话框(wx.showModal)
+  - 如果用户没有登录(有没有cookie),弹出对话框
+    - 要么回到首页,要么去往登录
+    - 注意:不管是点击取消按钮,还是确定按钮都会调用succes回调
+      - 在回调函数内部,通过形参判断内部cancel是否为true
+- 2.song页面C3效果实现
+  - 旋转指针:
+    - 旋转角度:transform:rotateZ(30deg)
+    - 旋转中心店:transform-origin:40rpx 0;
+  - 旋转唱片:
+    - 关键帧动画:@keyframes(from代表开始状态,to代表结束状态)
+    - 使用:animation:关键帧动画名称  周期时长  执行次数  动画执行速度函数;
+  - 控制页面的C3效果执行
+    - 如果给页面的根节点添加isplaying类名,内部元素就可以启动
+    - 使用状态控制isplaying类名的添加和取消
+- 3.从recommendSong到song页面
+  - 路由传参
+    - 传递:小程序中只支持query传参
+    - 接收参数:在onLoad中的形参options中可以获取到
+    - 注意:跳转地址有长度限制
+    - 最终方案:将歌曲id传递给song页面,在去请求详细数据
+- 4.song页面播放歌曲
+  - 如何播放歌曲?
+    - 通过背景音频管理器播放歌曲
+    - 获取背景音频管理器:通过wx.getBackgroundAudioManager()可以全局唯一的背景音频管理器;
+    - backgroundAudioManager实例,添加src,title(必传),自动开始歌曲播放
+- 5.遇到的BUG
+  - 需要缓存上一首歌曲的id以及播放状态
+    -  全局唯一对象:小程序实例对象
+      - let appInstance = getApp()
+      - 在appInstance 进行正常对象的数据读取和设置
+

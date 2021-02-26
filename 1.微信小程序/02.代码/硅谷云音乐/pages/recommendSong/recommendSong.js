@@ -1,5 +1,6 @@
 // pages/recommendSong/recommendSong.js
 import ajax from '../../utils/ajax.js'
+import PubSub from 'pubsub-js'
 
 Page({
 
@@ -9,13 +10,22 @@ Page({
   data: {
     month:"--",
     day:"--",
-    recommendList:[]
+    recommendList:[],
+    // currentId:null
+    currentIndex:null
   },
 
+  // 用户点击歌曲列表之后,触发的回调函数
   toSong(event){
     // console.log(event.currentTarget.dataset.song)
     // item整个对象太大了,url有长度限制,没办法完整传递,最终只传递id
     let songId = event.currentTarget.dataset.songid;
+    let songIndex = event.currentTarget.dataset.songindex;
+
+    this.setData({
+      currentIndex: songIndex
+    })
+
     wx.navigateTo({
       url: '/pages/song/song?songId=' + songId,
     })
@@ -66,6 +76,41 @@ Page({
         }
       })
     }
+
+    // 订阅消息,接受用户在song页面的操作(上一首或者下一首)
+    PubSub.subscribe('switchType',(msg,type)=>{
+      // console.log('switchType', msg, data)
+      let {currentIndex,recommendList} = this.data;
+      /*
+        判断用户要的是上一首还是下一首
+          1.如果是上一首,currentIndex-1
+          1.如果是下一首,currentIndex+1
+      */
+      if (type === "pre") {
+        // 1.如果是上一首, currentIndex - 1
+        if (currentIndex===0){
+          currentIndex = recommendList.length-1;
+        }else{
+          currentIndex -= 1;
+        }
+      } else {
+        // 2.如果是下一首首, currentIndex + 1
+        // currentIndex += 1;
+        if (currentIndex === recommendList.length - 1) {
+          currentIndex = 0;
+        } else {
+          currentIndex += 1;
+        }
+      }
+
+      this.setData({
+        currentIndex
+      })
+
+      let preSongId = recommendList[currentIndex].id;
+      // console.log('preSongId', preSongId)
+      PubSub.publish('sendSongId', preSongId)
+    })
   },
 
   /**

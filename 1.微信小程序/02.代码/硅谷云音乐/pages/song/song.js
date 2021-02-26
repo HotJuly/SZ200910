@@ -1,5 +1,6 @@
 // pages/song/song.js
 import ajax from '../../utils/ajax.js';
+import PubSub from 'pubsub-js'
 
 // 调用该方法,可以获得小程序全局唯一的实例
 let appInstance = getApp();
@@ -22,32 +23,63 @@ Page({
     })
 
     if(!this.data.songUrl){
-      let songUrl = await ajax('/song/url', { id: this.data.songId });
-      songUrl = songUrl.data[0].url;
-      // console.log('songUrl', songUrl)
-
-      this.setData({
-        songUrl
-      })
+      await this.getSongUrl();
     }
 
     // 获取全局唯一的背景音频管理器
-    let backgroundAudioManager = wx.getBackgroundAudioManager();
+    // let backgroundAudioManager = wx.getBackgroundAudioManager();
     if(this.data.isPlay){
 
       // 给背景音频管理器设置src可以实现自动播放
       // 注意:说是说只要src,但是其实还要title
-      backgroundAudioManager.src = this.data.songUrl;
-      backgroundAudioManager.title = this.data.songObj.name;
+      this.backgroundAudioManager.src = this.data.songUrl;
+      this.backgroundAudioManager.title = this.data.songObj.name;
 
       appInstance.globalData.audioId = this.data.songId;
       appInstance.globalData.playState = true;
 
     }else{
-      backgroundAudioManager.pause();
+      this.backgroundAudioManager.pause();
 
       appInstance.globalData.playState = false;
     }
+  },
+
+  // 用来处理用户切换歌曲的操作
+  switchType(event){
+    let { id } = event.currentTarget;
+    // console.log('switchType', id)
+
+    // 发布消息,告知recommendSong页面,用户点击了上一首,需要上一首的id
+    PubSub.publish('switchType',id);
+  },
+
+  // 用于请求歌曲详细信息
+  async getSongDetail(){
+    let songDetail = await ajax('/song/detail', { ids: this.data.songId });
+
+    // console.log('songDetail', songDetail);
+
+    let songObj = songDetail.songs[0];
+
+    // 动态更新导航栏标题
+    wx.setNavigationBarTitle({
+      title: songObj.name
+    })
+
+    this.setData({
+      songObj
+    })
+  },
+
+  async getSongUrl(){
+    let songUrl = await ajax('/song/url', { id: this.data.songId });
+    songUrl = songUrl.data[0].url;
+    // console.log('songUrl', songUrl)
+
+    this.setData({
+      songUrl
+    })
   },
 
   /**
@@ -62,30 +94,53 @@ Page({
     // console.log('options', options)
     let {songId} = options;
 
+    this.backgroundAudioManager = wx.getBackgroundAudioManager();
+
     this.setData({
       songId
     })
 
-    let songDetail = await ajax('/song/detail', { ids: songId});
+    this.getSongDetail();
 
-    // console.log('songDetail', songDetail);
+    // let songDetail = await ajax('/song/detail', { ids: songId});
 
-    let songObj = songDetail.songs[0];
+    // // console.log('songDetail', songDetail);
 
-    // 动态更新导航栏标题
-    wx.setNavigationBarTitle({
-      title:songObj.name
-    })
+    // let songObj = songDetail.songs[0];
 
-    this.setData({
-      songObj
-    })
+    // // 动态更新导航栏标题
+    // wx.setNavigationBarTitle({
+    //   title:songObj.name
+    // })
+
+    // this.setData({
+    //   songObj
+    // })
 
     if (appInstance.globalData.playState&&this.data.songId===appInstance.globalData.audioId){
       this.setData({
         isPlay:true
       })
     }
+
+
+    // 订阅消息,等待recommendSong告知对应歌曲的id
+    this.token = PubSub.subscribe('sendSongId',async (msg, songId) => {
+      console.log('sendSongId', msg, songId)
+      // 用最新的id发送请求
+
+      this.setData({
+        songId
+      })
+
+      this.getSongDetail();
+      await this.getSongUrl();
+
+      this.backgroundAudioManager.src = this.data.songUrl;
+      this.backgroundAudioManager.title = this.data.songObj.name;
+      appInstance.globalData.audioId = this.data.songId+"";
+      appInstance.globalData.playState = true;
+    })
 
   },
 
@@ -114,7 +169,7 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
+    PubSub.unsubscribe(this.token);
   },
 
   /**
