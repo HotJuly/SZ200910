@@ -24,6 +24,7 @@
 </template>
 
 <script>
+	import ajax from '../../utils/ajax.js';
 	export default {
 		data() {
 			return {
@@ -37,15 +38,17 @@
 		// 	console.log('onLoad')
 		// },
 		//mounted->页面挂载结束
-		mounted(){
+		async mounted(){
 			console.log('mounted')
-			uni.request({
-				url:'http://localhost:3000/getIndexData',
-				success:(res)=>{
-					// console.log('res',res)
-					this.indexData = res.data;
-				}
-			})
+			// uni.request({
+			// 	url:'http://localhost:3000/getIndexData',
+			// 	success:(res)=>{
+			// 		// console.log('res',res)
+			// 		this.indexData = res.data;
+			// 	}
+			// })
+			let indexData = await ajax('/getIndexData');
+			this.indexData=indexData;
 		},
 		methods:{
 
