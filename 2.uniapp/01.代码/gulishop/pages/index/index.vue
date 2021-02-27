@@ -20,10 +20,14 @@
 				{{item.text}}
 			</view>
 		</scroll-view>
+		
+		<!-- 推荐区域 -->
+		<Recommend :indexData="indexData"/>
 	</view>
 </template>
 
 <script>
+	import Recommend from '../../components/Recommend/Recommend.vue';
 	import ajax from '../../utils/ajax.js';
 	export default {
 		data() {
@@ -52,6 +56,9 @@
 		},
 		methods:{
 
+		},
+		components:{
+			Recommend
 		}
 	}
 </script>
