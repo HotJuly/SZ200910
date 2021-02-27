@@ -7489,9 +7489,9 @@ module.exports = g;
 
 /***/ }),
 /* 4 */
-/*!*************************************************************************!*\
-  !*** C:/Users/CHH/Desktop/200910/2.uniapp/01.代码/uniapp-init/pages.json ***!
-  \*************************************************************************/
+/*!**********************************************************************!*\
+  !*** C:/Users/CHH/Desktop/200910/2.uniapp/01.代码/gulishop/pages.json ***!
+  \**********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8393,25 +8393,25 @@ module.exports = {"_from":"@dcloudio/uni-stat@next","_id":"@dcloudio/uni-stat@2.
 
 /***/ }),
 /* 7 */
-/*!******************************************************************************************!*\
-  !*** C:/Users/CHH/Desktop/200910/2.uniapp/01.代码/uniapp-init/pages.json?{"type":"style"} ***!
-  \******************************************************************************************/
+/*!***************************************************************************************!*\
+  !*** C:/Users/CHH/Desktop/200910/2.uniapp/01.代码/gulishop/pages.json?{"type":"style"} ***!
+  \***************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/index/index": { "navigationBarTitleText": "首页2" } }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "首页", "navigationBarBackgroundColor": "#FF0000", "backgroundColor": "#F8F8F8" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/index/index": { "navigationBarTitleText": "首页", "navigationBarBackgroundColor": "#BB2C08", "navigationBarTextStyle": "white", "usingComponents": {} } }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "uni-app", "navigationBarBackgroundColor": "#F8F8F8", "backgroundColor": "#F8F8F8" } };exports.default = _default;
 
 /***/ }),
 /* 8 */
-/*!*****************************************************************************************!*\
-  !*** C:/Users/CHH/Desktop/200910/2.uniapp/01.代码/uniapp-init/pages.json?{"type":"stat"} ***!
-  \*****************************************************************************************/
+/*!**************************************************************************************!*\
+  !*** C:/Users/CHH/Desktop/200910/2.uniapp/01.代码/gulishop/pages.json?{"type":"stat"} ***!
+  \**************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "appid": "__UNI__sajdajkdsl" };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "appid": "" };exports.default = _default;
 
 /***/ }),
 /* 9 */,
