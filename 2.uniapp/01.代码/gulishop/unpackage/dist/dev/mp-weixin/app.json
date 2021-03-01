@@ -1,9 +1,11 @@
 {
   "pages": [
-    "pages/category/category",
-    "pages/index/index",
     "pages/cart/cart",
-    "pages/personal/personal"
+    "pages/index/index",
+    "pages/personal/personal",
+    "pages/category/category",
+    "pages/login/login",
+    "pages/detail/detail"
   ],
   "subPackages": [],
   "window": {

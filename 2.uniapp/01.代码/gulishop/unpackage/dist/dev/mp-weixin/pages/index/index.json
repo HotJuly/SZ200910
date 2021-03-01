@@ -3,6 +3,7 @@
   "navigationBarBackgroundColor": "#BB2C08",
   "navigationBarTextStyle": "white",
   "usingComponents": {
-    "recommend": "/components/Recommend/Recommend"
+    "recommend": "/components/Recommend/Recommend",
+    "cate-list": "/components/cateList/cateList"
   }
 }

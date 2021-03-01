@@ -404,4 +404,7 @@
 .icon-add:before {
     content:"\E6DF";
 }
+page {
+  height: 100%;
+}
 

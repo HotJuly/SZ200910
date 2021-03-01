@@ -52,6 +52,33 @@ router.get("/getCategoryDatas",function(ctx,next){
 	ctx.body=categoryDatas
 })
 
+const indexCateList = require('./datas/indexCateList.json');
+router.get("/getIndexCateList",async function(ctx,next){
+	let result = await new Promise((resolve,reject)=>{
+		setTimeout(()=>{
+			resolve(indexCateList)
+		},2000)
+	})
+	ctx.body=result;
+})
+
+
+const goods = require('./datas/goods.json');
+router.get("/getGoodDetail",function(ctx,next){
+	// 假设获取到商品id,如何找到对应商品并返回
+	// console.log('ctx',ctx.query)
+	let {goodId} =ctx.query;
+	// 数组方法 map forEach find filter reduce
+	//	find	找到第一个匹配的就停止,如果找到返回的是匹配的对象,如果没找到undefined
+	//	filter 一定会遍历整个数组
+	let result = goods.find((item)=>{
+		// 位运算符 >>> <<<
+		return item.id === goodId >>> 0
+	})
+	console.log('result',result)
+	ctx.body=result
+})
+
 //2.将服务器应用实例运行在某个端口上,并监听该端口
 app.listen('3000',function(error){
 	if(error){

@@ -13,17 +13,23 @@
 		
 		<!-- 导航条区域 -->
 		<scroll-view class="navScroll" scroll-x v-if="indexData.kingKongModule">
-			<view class="navItem active">
+			<view class="navItem" :class="currentIndex===-1?'active':''" @click="changeIndex(-1)">
 				推荐
 			</view>
-			<view class="navItem" v-for="item in indexData.kingKongModule.kingKongList" :key="item.L1Id">
+			<view class="navItem"
+			 :class="currentIndex===index?'active':''"
+			 v-for="(item,index) in indexData.kingKongModule.kingKongList"
+			 :key="item.L1Id"
+			 @click="changeIndex(index)"
+			  >
 				{{item.text}}
 			</view>
 		</scroll-view>
 		
 		<!-- 推荐区域 -->
 		<scroll-view scroll-y="true" class="contentScroll">
-			<Recommend :indexData="indexData"/>
+			<Recommend :indexData="indexData" v-if="currentIndex===-1"/>
+			<CateList :navIndex="currentIndex" v-else/>
 		</scroll-view>
 	</view>
 </template>
@@ -31,11 +37,13 @@
 <script>
 	import {mapState} from 'vuex'
 	import Recommend from '../../components/Recommend/Recommend.vue';
+	import CateList from '../../components/cateList/cateList.vue';
 	import ajax from '../../utils/ajax.js';
 	export default {
 		data() {
 			return {
-				title:'Hello'
+				title:'Hello',
+				currentIndex:-1
 			}
 		},
 		// onLoad->页面开始加载->created
@@ -66,10 +74,16 @@
 			})
 		},
 		methods:{
-
+			changeIndex(currentIndex){
+				this.currentIndex=currentIndex;
+				// if(currentIndex!==-1){
+				// 	let result = await ajax('/getIndexCateList');
+				// }
+			}
 		},
 		components:{
-			Recommend
+			Recommend,
+			CateList
 		}
 	}
 </script>

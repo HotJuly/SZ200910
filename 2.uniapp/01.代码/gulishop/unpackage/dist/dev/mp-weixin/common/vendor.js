@@ -8400,7 +8400,7 @@ module.exports = {"_from":"@dcloudio/uni-stat@next","_id":"@dcloudio/uni-stat@2.
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/index/index": { "navigationBarTitleText": "首页", "navigationBarBackgroundColor": "#BB2C08", "navigationBarTextStyle": "white", "usingComponents": { "recommend": "/components/Recommend/Recommend" } }, "pages/cart/cart": { "usingComponents": {} }, "pages/personal/personal": { "usingComponents": {} }, "pages/category/category": { "usingComponents": {} } }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "uni-app", "navigationBarBackgroundColor": "#F8F8F8", "backgroundColor": "#F8F8F8" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/cart/cart": { "usingComponents": {} }, "pages/personal/personal": { "usingComponents": {} }, "pages/category/category": { "usingComponents": {} }, "pages/index/index": { "navigationBarTitleText": "首页", "navigationBarBackgroundColor": "#BB2C08", "navigationBarTextStyle": "white", "usingComponents": { "recommend": "/components/Recommend/Recommend", "cate-list": "/components/cateList/cateList" } }, "pages/login/login": { "usingComponents": {} }, "pages/detail/detail": { "usingComponents": {} } }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "uni-app", "navigationBarBackgroundColor": "#F8F8F8", "backgroundColor": "#F8F8F8" } };exports.default = _default;
 
 /***/ }),
 /* 8 */
@@ -8535,14 +8535,16 @@ function normalizeComponent (
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
 var _vuex = _interopRequireDefault(__webpack_require__(/*! vuex */ 16));
-var _home = _interopRequireDefault(__webpack_require__(/*! ./modules/home.js */ 17));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+var _home = _interopRequireDefault(__webpack_require__(/*! ./modules/home.js */ 17));
+var _cart = _interopRequireDefault(__webpack_require__(/*! ./modules/cart.js */ 24));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 
 _vue.default.use(_vuex.default);var _default =
 
 
 new _vuex.default.Store({
   modules: {
-    home: _home.default } });exports.default = _default;
+    home: _home.default,
+    cart: _cart.default } });exports.default = _default;
 
 /***/ }),
 /* 16 */
@@ -9504,7 +9506,7 @@ var index_esm = {
 
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 18));var _ajax = _interopRequireDefault(__webpack_require__(/*! ../../utils/ajax.js */ 21));
-var _mutationTypes = __webpack_require__(/*! ../mutation-types.js */ 39);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}
+var _mutationTypes = __webpack_require__(/*! ../mutation-types.js */ 23);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}
 
 var state = {
   indexData: {} };
@@ -10387,23 +10389,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
   h5Host: '/api' };exports.default = _default;
 
 /***/ }),
-/* 23 */,
-/* 24 */,
-/* 25 */,
-/* 26 */,
-/* 27 */,
-/* 28 */,
-/* 29 */,
-/* 30 */,
-/* 31 */,
-/* 32 */,
-/* 33 */,
-/* 34 */,
-/* 35 */,
-/* 36 */,
-/* 37 */,
-/* 38 */,
-/* 39 */
+/* 23 */
 /*!***********************************************************************************!*\
   !*** C:/Users/CHH/Desktop/200910/2.uniapp/01.代码/gulishop/store/mutation-types.js ***!
   \***********************************************************************************/
@@ -10413,6 +10399,241 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });exports.GETINDEXDATAMUTATION = void 0; //ctrl+shift+u	->	选中内容转大写
 var GETINDEXDATAMUTATION = "getIndexDataMutation";exports.GETINDEXDATAMUTATION = GETINDEXDATAMUTATION;
+
+/***/ }),
+/* 24 */
+/*!*********************************************************************************!*\
+  !*** C:/Users/CHH/Desktop/200910/2.uniapp/01.代码/gulishop/store/modules/cart.js ***!
+  \*********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} // import {GETINDEXDATAMUTATION} from '../mutation-types.js';
+
+var state = {
+  cartList: [
+  {
+    "count": 2,
+    "selected": true,
+    "promId": 0,
+    "showPoints": false,
+    "itemTagList": [{
+      "itemId": 1535004,
+      "tagId": 128111157,
+      "freshmanExclusive": false,
+      "name": "暖冬特惠",
+      "subType": 204,
+      "forbidJump": false,
+      "type": 2 }],
+
+    "rank": 1,
+    "id": 1535004,
+    "sellVolume": 4001,
+    "primaryPicUrl": "https://yanxuan-item.nosdn.127.net/f79906f1b1fe86420ea40473de66ec0e.png",
+    "soldOut": false,
+    "sortFlag": 0,
+    "commentCount": 0,
+    "onSaleTime": 1538101761748,
+    "picMode": 1,
+    "commentWithPicCount": 0,
+    "underShelf": false,
+    "status": 2,
+    "couponConflict": true,
+    "forbiddenBuy": false,
+    "promotionDesc": "暖冬特惠",
+    "limitedFlag": 204,
+    "pieceNum": 0,
+    "itemSizeTableDetailFlag": false,
+    "forbidExclusiveCal": false,
+    "rewardShareFlag": false,
+    "updateTime": 1575893634989,
+    "showCommentEntrance": true,
+    "pieceUnitDesc": "件",
+    "specialPromTag": "",
+    "counterPrice": 299,
+    "categoryL2Id": 0,
+    "retailPrice": 209,
+    "primarySkuPreSellPrice": 0,
+    "preLimitFlag": 0,
+    "itemPromValid": true,
+    "promTag": "暖冬特惠",
+    "source": 0,
+    "points": 0,
+    "primarySkuPreSellStatus": 0,
+    "extraServiceFlag": 0,
+    "flashPageLink": "",
+    "autoOnsaleTimeLeft": 0,
+    "innerData": {},
+    "saleCenterSkuId": 0,
+    "pointsStatus": 0,
+    "extraPrice": "",
+    "colorNum": 0,
+    "showTime": 0,
+    "autoOnsaleTime": 0,
+    "preemptionStatus": 1,
+    "isPreemption": 0,
+    "zcSearchFlag": false,
+    "name": "男式色拉姆内衣套装2.0",
+    "appExclusiveFlag": false,
+    "itemType": 1,
+    "listPicUrl": "https://yanxuan-item.nosdn.127.net/c2eeb1b872af1b8efc179a7515aacdaa.png",
+    "pointsPrice": 0,
+    "simpleDesc": "色拉姆发热面料，加厚升级",
+    "seoTitle": "",
+    "newItemFlag": false,
+    "buttonType": 0,
+    "primarySkuId": 1636062,
+    "displaySkuId": 1636056,
+    "productPlace": "",
+    "itemSizeTableFlag": false },
+
+  {
+    "count": 6,
+    "selected": false,
+    "promId": 0,
+    "showPoints": false,
+    "itemTagList": [{
+      "itemId": 1536001,
+      "tagId": 128111157,
+      "freshmanExclusive": false,
+      "name": "暖冬特惠",
+      "subType": 204,
+      "forbidJump": false,
+      "type": 2 }],
+
+    "rank": 1,
+    "id": 1536001,
+    "sellVolume": 3634,
+    "primaryPicUrl": "https://yanxuan-item.nosdn.127.net/32b8b2d07b1c4327593a4a70993eeac2.png",
+    "soldOut": false,
+    "sortFlag": 0,
+    "commentCount": 0,
+    "onSaleTime": 1538101896296,
+    "picMode": 1,
+    "commentWithPicCount": 0,
+    "underShelf": false,
+    "status": 2,
+    "couponConflict": true,
+    "forbiddenBuy": false,
+    "promotionDesc": "暖冬特惠",
+    "limitedFlag": 204,
+    "pieceNum": 0,
+    "itemSizeTableDetailFlag": false,
+    "forbidExclusiveCal": false,
+    "rewardShareFlag": false,
+    "updateTime": 1575894115275,
+    "showCommentEntrance": true,
+    "pieceUnitDesc": "件",
+    "specialPromTag": "",
+    "counterPrice": 299,
+    "categoryL2Id": 0,
+    "retailPrice": 209,
+    "primarySkuPreSellPrice": 0,
+    "preLimitFlag": 0,
+    "itemPromValid": true,
+    "promTag": "暖冬特惠",
+    "source": 0,
+    "points": 0,
+    "primarySkuPreSellStatus": 0,
+    "extraServiceFlag": 0,
+    "flashPageLink": "",
+    "autoOnsaleTimeLeft": 0,
+    "innerData": {},
+    "saleCenterSkuId": 0,
+    "pointsStatus": 0,
+    "extraPrice": "",
+    "colorNum": 0,
+    "showTime": 0,
+    "autoOnsaleTime": 0,
+    "preemptionStatus": 1,
+    "isPreemption": 0,
+    "zcSearchFlag": false,
+    "name": "女式色拉姆内衣套装2.0",
+    "appExclusiveFlag": false,
+    "itemType": 1,
+    "listPicUrl": "https://yanxuan-item.nosdn.127.net/02b61fb5700aed6761b7524d98ed0837.png",
+    "pointsPrice": 0,
+    "simpleDesc": "色拉姆发热面料，加厚升级",
+    "seoTitle": "",
+    "newItemFlag": false,
+    "buttonType": 0,
+    "primarySkuId": 1634105,
+    "displaySkuId": 1634104,
+    "productPlace": "",
+    "itemSizeTableFlag": false }] };
+
+
+
+
+var mutations = {
+  changeShopItemSelected: function changeShopItemSelected(state, _ref) {var selected = _ref.selected,index = _ref.index;
+    // console.log(selected,index)
+    state.cartList[index].selected = selected;
+  },
+  addShopItem: function addShopItem(state, good) {
+    /*
+                                                  	需求分析:
+                                                  		1.如果该商品在购物车中不存在,将他添加到购物车中(隐藏:数量为1)
+                                                  		2.如果该商品在购物车中存在,将对应商品数量+1即可
+                                                  		解析:
+                                                  			1.根据商品id遍历数组,判断到底是否存在
+                                                  */
+    // console.log(store,good)
+    var result = state.cartList.find(function (shopItem) {
+      return shopItem.id === good.id;
+    });
+    if (result) {
+      result.count += 1;
+      console.log(result);
+      console.log('商品存在,数量+1');
+    } else {
+      // good.count=1;
+      _vue.default.set(good, "selected", true);
+      _vue.default.set(good, "count", 1);
+      state.cartList.push(good);
+      console.log(good);
+      console.log('商品不存在,插入购物车');
+    }
+  },
+  changeSelectedAllMutation: function changeSelectedAllMutation(state, selected) {
+    // console.log('changeSelectedAllMutation')
+    // 将所有的商品的选中状态,改为selected
+    //forEach的返回值跟内部回调函数的返回值没有必然关系
+    state.cartList.forEach(function (shopItem) {
+      shopItem.selected = selected;
+      // return 132;
+    });
+    // console.log(result)
+
+  } };
+
+
+var actions = {};
+
+
+
+var getters = {
+  isSelectedAll: function isSelectedAll(state) {
+    /*
+                                                	思路:
+                                                		1.数组中所有的商品都是选中状态,全选按钮为选中
+                                                		2.数组中有一个的商品是未选中状态,全选按钮为未选中
+                                                		3.数组中没有商品,全选按钮为未选中
+                                                		4.返回值:布尔值
+                                                */
+    if (state.cartList.length === 0) return false;
+    var result = state.cartList.every(function (shopItem) {return shopItem.selected;});
+    return result;
+  } };var _default =
+
+
+{
+  state: state,
+  mutations: mutations,
+  actions: actions,
+  getters: getters };exports.default = _default;
 
 /***/ })
 ]]);
