@@ -23,4 +23,36 @@
   font-size: 24rpx;
   vertical-align: middle;
 }
+.recommendContainer .kingKongListContainer {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+}
+.recommendContainer .kingKongListContainer .kingKongItem {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 20%;
+}
+.recommendContainer .kingKongListContainer .kingKongItem .smallImg {
+  width: 110rpx;
+  height: 110rpx;
+}
+.recommendContainer .kingKongListContainer .kingKongItem .smallText {
+  font-size: 24rpx;
+}
 

@@ -1,0 +1,30 @@
+.categorysContainer {
+  padding: 40rpx 0;
+}
+.categorysContainer .titleImg {
+  width: 100%;
+  height: 370rpx;
+}
+.categorysContainer .categoryScroll {
+  white-space: nowrap;
+}
+.categorysContainer .categoryScroll .categoryItem {
+  display: inline-block;
+  width: 200rpx;
+  margin: 0 20rpx;
+}
+.categorysContainer .categoryScroll .categoryItem .itemImg {
+  width: 200rpx;
+  height: 200rpx;
+  background: #eee;
+}
+.categorysContainer .categoryScroll .categoryItem .itemText {
+  height: 60rpx;
+  font-size: 24rpx;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  white-space: pre-wrap;
+}
+

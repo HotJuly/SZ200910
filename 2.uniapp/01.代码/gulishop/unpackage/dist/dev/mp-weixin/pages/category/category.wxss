@@ -1,0 +1,95 @@
+.categoryContainer {
+  height: 100%;
+}
+.categoryContainer .header {
+  height: 60rpx;
+  padding: 10rpx 0;
+  border-bottom: 2rpx solid #eee;
+}
+.categoryContainer .header .search_div {
+  height: 60rpx;
+  background: #eee;
+  width: 704rpx;
+  margin: 0 auto;
+  border-radius: 10rpx;
+  line-height: 60rpx;
+  text-align: center;
+  font-size: 28rpx;
+}
+.categoryContainer .content {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  height: calc(100vh - 82rpx);
+  background: #eee;
+}
+.categoryContainer .content .leftContainer {
+  width: 20%;
+  height: 100%;
+  font-size: 26rpx;
+  text-align: center;
+  border-right: 1rpx solid #eee;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+.categoryContainer .content .leftContainer .navScroll {
+  height: 100%;
+  background-color: #fff;
+}
+.categoryContainer .content .leftContainer .navScroll .navItem {
+  position: relative;
+  height: 80rpx;
+  line-height: 80rpx;
+}
+.categoryContainer .content .leftContainer .navScroll .navItem.active::after {
+  position: absolute;
+  content: '';
+  top: 10rpx;
+  left: 4rpx;
+  width: 2rpx;
+  height: 60rpx;
+  background-color: #bb2c08;
+}
+.categoryContainer .content .rightContainer {
+  width: 80%;
+  height: 100%;
+  background-color: #fff;
+}
+.categoryContainer .content .rightContainer .contentScroll {
+  width: 100%;
+  height: 100%;
+}
+.categoryContainer .content .rightContainer .contentScroll .scrollHeader {
+  width: 100%;
+}
+.categoryContainer .content .rightContainer .contentScroll .scrollHeader .headerImg {
+  display: block;
+  width: 520rpx;
+  height: 190rpx;
+  margin: 20rpx auto;
+}
+.categoryContainer .content .rightContainer .contentScroll .contentItem {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 33.333%;
+}
+.categoryContainer .content .rightContainer .contentScroll .contentItem image {
+  width: 160rpx;
+  height: 144rpx;
+}
+.categoryContainer .content .rightContainer .contentScroll .contentItem text {
+  font-size: 26rpx;
+}
+

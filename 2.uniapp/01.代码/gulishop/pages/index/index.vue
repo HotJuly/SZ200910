@@ -22,18 +22,20 @@
 		</scroll-view>
 		
 		<!-- 推荐区域 -->
-		<Recommend :indexData="indexData"/>
+		<scroll-view scroll-y="true" class="contentScroll">
+			<Recommend :indexData="indexData"/>
+		</scroll-view>
 	</view>
 </template>
 
 <script>
+	import {mapState} from 'vuex'
 	import Recommend from '../../components/Recommend/Recommend.vue';
 	import ajax from '../../utils/ajax.js';
 	export default {
 		data() {
 			return {
-				title:'Hello',
-				indexData:{}
+				title:'Hello'
 			}
 		},
 		// onLoad->页面开始加载->created
@@ -51,8 +53,17 @@
 			// 		this.indexData = res.data;
 			// 	}
 			// })
-			let indexData = await ajax('/getIndexData');
-			this.indexData=indexData;
+			// let indexData = await ajax('/getIndexData');
+			// this.indexData=indexData;
+			this.$store.dispatch('getIndexData');
+		},
+		computed:{
+			// indexData(){
+			// 	return this.$store.state.home.indexData;
+			// },
+			...mapState({
+				indexData:(state)=>state.home.indexData
+			})
 		},
 		methods:{
 
@@ -123,5 +134,11 @@
 					position absolute
 					bottom 0
 					left 0
-				
+		.contentScroll
+			// 小程序端 100vh不包含导航栏和tabBar
+			// height= 100vh - header高度 - nav高度
+			// h5端	100vh包含导航栏和tabBar
+			// heigh= 100vh - header高度 - nav高度 - 导航栏高度 - tabBar高度
+			// 使用级联变量	--window-top可以获取导航栏高度 --window-bottom可以获取tabBar高度
+			height calc(100vh - 80upx - 80upx - var(--window-top) - var(--window-bottom))
 </style>
