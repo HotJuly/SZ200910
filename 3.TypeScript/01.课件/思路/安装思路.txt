@@ -1,0 +1,18 @@
+1.使用原生指令打包
+	全局安装typescript
+	使用命令:tsc 文件路径
+
+2.使用vscode编译
+	初始化tsconfig.json(tsc --init)
+	修改配置
+		将严格模式关闭
+		设置打包输出地址
+	使用vscode->终端->运行任务->typescript->ts监视
+
+3.使用webpack编译
+	初始化package.json(npm init)
+	下载8个npm包(直接使用package.json)
+		注意:webpack版本必须是4版本,webpack-cli必须是3版本
+	配置命令
+		cross-env NODE_ENV=development webpack-dev-server
+	
