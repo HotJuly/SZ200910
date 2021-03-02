@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="box">1</div>
+    <div class="box">2</div>
+    <div class="box">3</div>
+    <button id="btn">点击</button>
+    <script>
+        let arr1 = document.getElementsByClassName('box');
+        let arr2 = document.querySelectorAll('.box');
+        console.log(arr1,arr2)
+        btn.onclick=function(){
+            let div = document.createElement('div');
+            div.innerText=4;
+            div.className="box";
+            document.body.appendChild(div);
+            console.log(arr1,arr2)
+        }
+    </script>
+</body>
+</html>
