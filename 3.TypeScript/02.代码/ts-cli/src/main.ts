@@ -1,89 +1,172 @@
-let flag: boolean = true;
-flag = false;
-flag = undefined;
-flag = null;
-
-let num: number = 11;
-
-let str: string = "str";
-
-//在非格模式下,undefined和null算是所有类型的子类
-let un:undefined =undefined;
-
-let nu:null =null;
-
-/*
-    数组内部存放数字
-        1.number[]
-        2.Array<number>
+(function(){
+    /* 
+类的基本定义与使用
 */
-let arr:number[] = [1,2,3];
-
-// 元组:已知长度,已知类型
-let arr1:[number,string,boolean] = [1,"str",true];
-
-arr1[0].toFixed();
-arr1[1].indexOf("t");
-
-enum Color {
-    Red,
-    Green,
-    Blue
-}
-
-let myColor:Color = Color.Green;
-console.log('Color',Color)
-
-
-// let arr3 = ["广东省","福建省"];
-
-
-enum Provide{
-    "广东省" = 1,
-    "福建省"
-}
-
-let obj ={
-    name:"xiaoming",
-    provide:0
-}
-
-console.log(Provide,Provide[obj.provide],Provide['福建省'])
-
-// 除非真的迫不得已,不然不推荐使用
-let a1: any =1;
-a1="str";
-
-// void代表没有任何值,一般用于函数返回值
-let a2:void;
-
-function fn1(): void{
-    console.log(123);
-    // return 123;
-}
-
-// object类型.js中一切皆对象,object代表所有非基本数据源类型
-let obj1: object = {};
-obj1=[];
-// obj1=2;
-
-// 联合类型,相当于是类型的逻辑或,允许多种情况
-let arr3:[number|string] = [1];
-arr3[0]='str';
-
-
-// 类型断言,不需要ts检测,按照你说的指定标准
-function fn2(data: string|number){
-    // 如果data是数字,我就输出他
-    // 如果data是字符串,就输出他的length
-    if((data as string).length){
-        return (<string>data).length;
-    }else{
-        return data;
+class Greeter {
+    // 声明属性
+    message: string
+    // state:object={}
+  
+    // 构造方法
+    constructor (message: string) {
+      this.message = message
     }
-}
-console.log(fn2("123111aaa"));
+  
+    // 一般方法
+    //Greeter.prototype.greet=匿名函数
+    greet (): string {
+      return 'Hello ' + this.message
+    }
+  }
+  
+  // 创建类的实例
+  const greeter = new Greeter('world')
+  // 调用实例的方法
+  console.log(greeter)
+})();
 
-// 类型推断,根据声明变量时候的赋值结果,推断当前变量可存放数据类型
-let num2 = 2;
-// num2=true;
+(function(){
+  //继承:为了让子类能够使用到父类的方法
+  class Animal{
+    static name1:string="123";
+    constructor(name:string){
+      // dog.name=name;
+      // this.name=name;
+    }
+    eat(food:string):string{
+      // return this.name+"正在吃:"+food
+      return "正在吃:"+food
+    }
+  }
+
+  class Dog extends Animal{
+    constructor(name:string){
+      // Animal.call(dog,name)
+      super(name);
+    }
+
+    run():void{
+      console.log('它正在跑')
+    }
+  }
+  let dog = new Dog("小黑");
+  /*
+    dog.run
+    1.寻找dog对象身上是否具有run
+    2.如果对象身上没有,就dog.__proto__.run
+  
+  */
+  dog.run();
+
+  
+  /*
+    dog.run
+    1.寻找dog对象身上是否具有eat
+    2.如果对象身上没有,就dog.__proto__.eat==>Dog.prototype.eat
+    3.dog.__proto__.__proto__.eat==>Dog.prototype.__proto__.eat
+      extends=>
+        let an = new Animal();
+        Dog.prototype = an;
+  
+  */
+  console.log(dog.eat("菠萝"));
+  console.dir(Animal)
+
+})();
+
+(function(){
+  /* 
+    安全性的递增
+    public  公共,所有人可见
+    protected 只有当前类和子类内部可见
+    private 只能自身类内部课件
+
+    静态 static
+    只读 readonly
+  */
+  class Person {
+    public name: string
+    protected sex:string;
+    private age: number;
+    readonly phone:number=166666666;
+    
+    constructor (name: string,age:number,sex:string) {
+      this.name = name
+      this.age = age
+      this.sex = sex
+    }
+    sayAge(){
+      console.log("年龄:"+this.age)
+    }
+  
+  }
+
+  class Man extends Person{
+    constructor(name: string,age:number,sex:string){
+      super(name,age,sex)
+    }
+    say(){
+      console.log('我是'+this.name+"性别:"+this.sex)
+    }
+  }
+
+  let p = new Man('xiaoming',22,'男');
+  // console.log(p.name,p.age,p.sex)
+  p.say();
+  // p.phone=66666;
+
+})();
+
+(function(){
+  class Person {
+    firstName: string = 'A'
+    lastName: string = 'B'
+    // 使用到Object.defineProperty()
+    get fullName () {
+      return this.firstName + '-' + this.lastName
+    }
+    set fullName (value) {
+      const names = value.split('-')
+      this.firstName = names[0]
+      this.lastName = names[1]
+    }
+  }
+  
+  const p = new Person()
+  console.log(p.fullName)
+  
+  p.firstName = 'C'
+  p.lastName =  'D'
+  console.log(p.fullName)
+  
+  p.fullName = 'E-F'
+  console.log(p.firstName, p.lastName)
+})();
+
+(function(){
+  interface IAnimal{
+    cry:()=>
+  }
+
+  // 抽象类,相当于是接口的升级版本,可以再约束子类的同时,给他提供一些方法
+  abstract class Animal {
+
+    //约束子类必须拥有该方法
+    abstract cry ()
+  
+    //给子类提供一些方法
+    run () {
+      console.log('run()')
+    }
+  }
+
+  class Dog extends Animal{
+    cry(){
+
+    }
+  }
+
+  let dog = new Dog();
+  dog.run();
+  console.log(new Animal());
+})();
