@@ -1,78 +1,93 @@
 <template>
   <div class="home">
-    <ul>
-      <li>姓名:{{user.name}}</li>
-      <li>年龄:{{user.age}}</li>
-      <li>性别:{{user.sex}}</li>
-      <li>
-        <ul>
-          <li v-for="item in user.cars" :key="item">
-            {{item}}
-          </li>
-        </ul>
-      </li>
-    </ul>
-    <p @click="handleClick222">{{bbb}}</p>
-    <button @click="addAge">过年又老了一岁</button>
-    <button @click="changeCar">过年又有钱了,改车改车</button>
+    <h1>count:{{count}}</h1>
+    <div>
+      firstName:<input type="text" v-model="firstName">
+    </div>
+    <div>
+      lastName:<input type="text" v-model="lastName">
+    </div>
+    <div>
+      name1:<input type="text" v-model="name1">
+    </div>
+    <div>
+      name2:<input type="text" v-model="name2">
+    </div>
+    <div>
+      name3:<input type="text" v-model="name3">
+    </div>
+    <button @click="changeLastName">+</button>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent , reactive } from 'vue';
+import { defineComponent ,  ref , computed , watch , watchEffect} from 'vue';
 
 export default defineComponent({
   name: 'Home',
-  data(){
-    return{
-      bbb:123
-    }
-  },
-  setup(props,context){
-    /*
-      reactive方法,可以将一个普通对象,变成响应式对象
-      reactive是一个Proxy对象(代理对象),身上没有原数据,他只有原数据的引用
-      reactive是深度响应式,如果发现内部数据值是非基本数据类型,进行reactive操作
-    */
+  setup(){
 
-
-    const obj = {
-      name:"xiaoming",
-      age:18,
-      sex:"男",
-      cars:["法拉利","玛莎拉蒂"]
-    };
-    const user = reactive<any>(obj);
-
-    // console.log(obj,user)
-    // console.log(obj,user.cars)
-
-    const addAge = function(){
-      user.age++;
-      delete user.sex;
-      // user.cars[1]="";
-      user.cars.length=user.cars.length-1;
+    const firstName = ref<string>("东方");
+    const lastName = ref<string>("不败");
+    const changeLastName = function(){
+      lastName.value+="+";
     }
 
-    const changeCar = function(){
-      user.cars[0]+="+";
-    }
-    // console.log(this)
-    console.log('setup',props,context)
+    const name1 = computed(()=>{
+      return firstName.value+"_"+lastName.value
+    })
+
+    const name2 = computed({
+      get(){
+      return firstName.value+"----"+lastName.value
+      },
+      set(value: string){
+        const names: string[] = value.split("----");
+        firstName.value = names[0];
+        lastName.value = names[1];
+      }
+    })
+
+    const name3 = ref<any|string>(null);
+
+
+    // watch([firstName,lastName],function(){
+    //   // console.log('111')
+    //   name3.value = firstName.value + "+"+ lastName.value
+    // },{immediate:true})
+    
+    // 新增,可以不需要告诉他内部的依赖数据,他会自动追踪
+    // 自带{immediate:true},首次渲染就是自动更新
+    watchEffect(()=>{
+      name3.value = firstName.value + "+"+ lastName.value
+    })
+
     return {
-      user,
-      addAge,
-      changeCar
+      firstName,
+      lastName,
+      changeLastName,
+      name1,
+      name2,
+      name3
     }
   },
-  methods:{
-    handleClick222(){
-      console.log('222')
-    }
-  },
-  mounted(){
-    console.log('data',this);
-    console.log('methods',this);
-  }
+  // computed:{
+  //   doubleCount(){
+  //     return this.count*2;
+  //   }
+      // threeCount:{
+      //   get(){
+
+      //   },
+      //   set(){
+
+      //   }
+      // }
+  // },
+  // watch:{
+  //   firstName(){
+
+  //   }
+  // }
 });
 </script>
