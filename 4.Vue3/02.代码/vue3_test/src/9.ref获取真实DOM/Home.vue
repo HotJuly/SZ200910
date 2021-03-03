@@ -14,7 +14,7 @@ export default defineComponent({
     const inputRef = ref<HTMLElement|null>(null);
     onMounted(()=>{
       // console.log(inputRef.value)
-      inputRef.value&&inputRef.value.focus()
+      inputRef.value&&inputRef.value.focus();
     })
     return {
       inputRef
