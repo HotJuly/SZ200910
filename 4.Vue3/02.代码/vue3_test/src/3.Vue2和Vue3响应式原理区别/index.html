@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const obj  = {
+            name:"xiaoming",
+            age:13,
+            sex:"未知"
+        }
+        // new Proxy(真正拥有数据的对象,)
+        const proxyObj = new Proxy(obj,{
+            get(target,prop){
+                console.log('用户读取了'+prop+"属性")
+                return target[prop];
+            },
+            set(target,prop,value){
+                // 更新视图
+                console.log('用户修改了'+prop+"属性值,:"+value)
+                // target[prop]=value;
+                Reflect.set(target,prop,value);
+            },
+            deleteProperty(target,prop){
+                // 更新视图
+                console.log('用户删除了'+prop+"属性")
+                delete target[prop];
+            }
+        })
+        // console.log(proxyObj.name)
+        proxyObj.age=33;
+        // delete proxyObj.sex;
+        console.log('obj',obj)
+    </script>
+</body>
+</html>
