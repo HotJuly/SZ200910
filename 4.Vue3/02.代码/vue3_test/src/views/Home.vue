@@ -1,31 +1,35 @@
 <template>
-  <h2>App</h2>
-  <div>{{count}}</div>
-  <Teleport to="body">
-    <button @click="addCount">+</button>
-  </Teleport>
+  <div class="home">
+    <p>name:{{ user.name }}</p>
+    <p>age:{{ user.age }}</p>
+    <p>car1:{{ user.cars[0] }}</p>
+    <p>car2:{{ user.cars[1] }}</p>
+    <p>car3:{{ user.cars[2] }}</p>
+    <button @click="addAge">打工一年</button>
+    <button @click="addCar">买车</button>
+  </div>
 </template>
 
-<script lang="ts">
 
-import {ref ,isRef} from 'vue'
+<script setup>
+import { reactive,watch} from 'vue';
 
-export default {
+const user = reactive({
+          name: "xiaowang",
+          age: 18,
+          cars: ["五菱宏光", "QQ"],
+        }
+);
 
-  setup () {
-    const count=ref(2);
-    const addCount = function(){
-      count.value++;
-    }
-    return {
-      count,
-      addCount
-    }
-  }
-}
+// const {name,age,cars} =  user;
 
-/* 
-实现函数防抖的自定义ref
-*/
+
+const addCar = function () {
+  user.cars.push("帕萨特");
+};
+
+const addAge = function () {
+  user.age++;
+};
 
 </script>
