@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+            1.万物皆对象->函数也是对象(从函数拥有prototype属性,就可以证明他是一个对象)
+            2.所有的对象都是Object的直接或者间接实例对象
+            3.所有的函数都是Function的实例对象,包括他自己(自己创建了自己????)
+            注意:
+                1.Function,Object,以及Function的原型对象,都是用C语言写的,所以不存在谁创建谁的问题
+        */
+        function Foo () {}
+        const f1 = new Foo()
+        const f2 = new Foo()
+
+        const o1 = new Object()
+        const o2 = {}
+
+        Foo instanceof Object       //true
+        Foo instanceof Function     //true
+        Object instanceof Object    //true
+        Function instanceof Function //true
+        Function instanceof Object  //true
+
+        Object instanceof Foo   //false
+        f1 instanceof Function  //false
+        f1 instanceof Object    //true
+    </script>
+</body>
+</html>

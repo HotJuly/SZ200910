@@ -8,10 +8,10 @@
 <body>
   <script>
     // 同步回调
-    // [1, 2, 3].forEach(item => {
-    //   console.log(item)
-    // })
-    // console.log('forEach()之后')
+    [1, 2, 3].forEach(item => {
+      console.log(item)
+    })
+    console.log('forEach()之后')
 
     new Promise((resolve, reject) => { // excutor  执行器函数
       console.log('执行excutor')

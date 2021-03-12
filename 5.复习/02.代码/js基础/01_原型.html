@@ -8,37 +8,32 @@
 <body>
   <script>
 
-    Fn()
-    // Fn2()
-    /* 
-    执行函数定义:
-      - 执行函数定义定义(有可能被提升执行) ==>  创建函数对象
-      - 给函数对象添加prototype属性, 属性值指定为空的Object实例对象   {}
-      - 给原型对象添加constructor属性, 值为函数
-    */
-    function Fn() {
-    }
+    // var p1 = new Person();
+    // function Person(){
+    //   // var this = new Object();
+    //   this.name="xiaoming"
+    //   // this.__proto__ = Person.prototype
+    // }
 
-    var Fn2 = function () {}
+    // console.log(Person)
+    // var Person = new Function("this.name='xiaoming'");
+    // Person.prototype = new Object();
+    // var person =function(){}
 
-    Fn2()
-    /* 
-    创建实例对象内部:
-      const obj = {}
-      Fn.call(obj)
-      obj.__proto__ = Fn.prototype
-    */
-    const fn = new Fn()
+    // 查找属性会顺着原型链找
+    // 设置属性值不会顺着原型链
+      function A(){
+        this.name = "a";
+      }
+      A.prototype.count = 1;
+      let a = new A();
 
-
-    console.log(Function.prototype, {})
-    
-    // js引擎自动执行了一段代码
-    Function.prototype.__proto__ = Object.prototype
-
-
-    console.log(Function.prototype, Function.prototype.__proto__===Object.prototype)
-
+      // a.count = 6;
+      // a.count+=1;
+      a.count = a.count+1;
+      // a.count = a.__proto__.count + 1
+      a.count = 1 + 1;
+      console.log(a,a.count)
   </script>
 </body>
 </html>

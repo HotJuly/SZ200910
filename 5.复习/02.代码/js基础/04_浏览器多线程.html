@@ -17,16 +17,17 @@
   </div>
   <script>
       Promise.resolve().then(() => { // 微任务
-          alert('promise1') // 页面渲染了吗?
+          alert('promise1') // 页面渲染了吗?没有
       }) 
       Promise.resolve().then(() => { // 微任务
-          alert('promise2') // 页面渲染了吗?
+          alert('promise2') // 页面渲染了吗?没有
       }) 
       setTimeout(() => {// 宏任务
           alert(document.getElementById('content').innerHTML)  // 页面渲染了吗?
       }, 0)
       document.getElementById('test').onclick = () => {// 宏任务
           document.getElementById('content').innerHTML = 'xxxx'  // dom渲染 
+        //   document.getElementById('content').innerHTML = 'xxxx3'  // dom渲染 
           setTimeout(() => {// 宏任务  
               alert(document.getElementById('content').innerHTML) // 页面更新渲染了吗?
           }, 0); 
@@ -34,7 +35,7 @@
               alert('promise3') //页面更新渲染了吗?
           }) 
       }
-      alert('1111') // 页面渲染了吗?  没
+      alert('1111') // 页面渲染了吗? 没有
 
   </script>
 </body>

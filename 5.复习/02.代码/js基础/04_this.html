@@ -7,61 +7,45 @@
 </head>
 <body>
   <script>
+    var name1 = "window"
+    function fn(a,b,c){
+      // this=123;
+      console.log(this.name1,a,b,c)
+    }
+    var obj = {
+      name1:"xiaoming"
+    }
+    // fn()//window
+    // fn.call(obj)
+    // fn.call(123)
 
-    /* 
-    fn.bind(obj)
-    1. 返回一个新函数
-    2. 新函数内部会去调用原函数, 并指定原函数的this为第一个参数
+    // //call和apply之间,都可以改变当前本次执行的this指向,
+    // // 区别在于传参方式,call和apply第一个参数都是this指向
+    // // 不同:如果需要四个实参,call需要分开传入,apply用数组一次传入
+    // fn.call(obj,1,2,3);
+    // fn.apply(obj,[1,2,3]);
+
+    /*
+      bind返回值:返回全新的函数,并修改内部的this指向
+      bind传参:传参形式和call一样
     */
+    // var fn2 = fn.bind(obj);
+    // console.log(fn2===fn)
 
-    // Function.prototype.bind = function (obj) {
-    //   console.log('bind()')
-    //   return () => {
-    //     this.call(obj)
-    //   }
+    // var fn3 = ()=>{
+    //   console.log(this.name1);
     // }
+    // fn3.bind(obj)();
 
-    // var m = 1
-    // function fn() {
-    //   console.log(this.m)
-    //   return 3
-    // }
-    // const obj = {m: 2}
-
-    // var fn2 = fn.bind(obj)
-    // // fn()
-    // fn2()
-    
-
-    // const obj2 = {
-    //   test () {
-    //     const f = () => {
-    //       console.log('+++', this) // obj2
-    //     }
-    //     f()
-
-    //     const f2 = function () {
-    //       console.log('---', this)
-    //     }
-    //     f2()  // window
-    //   }
-    // }
-    // obj2.test()
-    var length=5;
-
-    var obj ={
-      length:3,
-      fn2:function(){
-        arguments[0]();
-        // arguments.0()
+    function bind1(yourThis){
+      var that = this;
+      // console.log(this)
+      return function(){
+        that.call(yourThis);
       }
     }
-
-    function a(){
-      console.log(this.length)
-    }
-
-    obj.fn2(a);
+    Function.prototype.bind1=bind1;
+    fn.bind1(obj)();
   </script>
 </body>
 </html>

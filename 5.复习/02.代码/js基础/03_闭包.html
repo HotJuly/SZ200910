@@ -7,54 +7,70 @@
 </head>
 <body>
   <script>
-    // var a=1;
-    // (function(w){
-    //   function a(){
-
-    //   }
-    //    window.b=a;
-
-    // })(window)
-
+    // 什么是闭包
+    /*
+      每个函数调用的时候都会创建对应的执行上下文
+        执行上下文分为两部分:
+          运行函数所需要的内存空间
+          变量对象(用于收集当前环境中,所有的变量,以及他的值,作用域的实现原理)
+      当函数执行结束之后,当前的执行上下文一定会被销毁
+      但是内层函数使用到外层执行上下文中的变量,所以对应的变量对象会被保留下来
+    */
     function fn1() {
       var b = 3
       var a = 2;
       function fn2() {
-        a++;
         var c=4;
-        console.log(a);
-
-        function fn3() {
-          c++;
-          console.log(a,b,c);
+        a++;
+        console.log('fn2',a);
+        function fn4(){
+          console.log(c,b);
         }
-
-        function fn4() {
-          c+=2;
-          console.log(a,b,c);
-        }
-
-        return {fn3,fn4};
+        return fn4
       }
-      return fn2();
+      function fn3() {
+        a+=2;
+        console.log('fn3',a);
+      }
+      return {
+        fn2,
+        fn3
+      };
     }
-    var {fn3,fn4} = fn1();
 
+    var {fn2,fn3} = fn1();
+    // fn1();
+
+    fn2();
+    var fn4 = fn2();
     fn3();
     fn4();
-    f=null;
-    // f();
-    // f = null
+    //如果是每个函数独享一个闭包
+    
+    // fn2(); 3
+    // fn2(); 4
+    // fn3(); 4
+
+    //如果是所有函数共享一个闭包
+    
+    // fn2(); 3
+    // fn2(); 4
+    // fn3(); 6
 
 
-    // function showDelay(msg, time) {
+
+
+    // fn();
+    // fn=null;
+    // console.log(123)
+    // fn();
+
+    // function showDeelay (time, msg) {
     //   setTimeout(() => {
-    //     alert(msg)
-    //   }, time);
+    //       alert(msg)
+    //   }, time)
     // }
-
-    // showDelay('abc', 1000)
-    // clearTimeout()
+    // showDeelay(1000,222)
   </script>
 </body>
 </html>
