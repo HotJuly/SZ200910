@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /* Promise接受一个实参,数据类型必须是函数,而且这个函数会被同步执行
+            这个执行器函数,接受两个实参,第一个可以将promise对象的状态变成完成,第二个变成失败
+            回调函数定义:
+                1.我定义的
+                2.我没调用
+                3.他执行了
+        */
+        // let promise = new Promise((resolve,reject)=>{
+        //     setTimeout(()=>{
+        //         console.log(123);
+        //         reject(123)
+        //     },2000)
+        // });
+
+        // // arr.forEach(()=>{
+        // //     return 123;
+        // // })
+        // //resolve的第一个实参,会交给then成功回调的第一个形参
+        // promise
+
+        // .then((data)=>{
+        //     console.log('data',data)
+        //     /* 控制返回的promise的状态的方法
+        //         1.其他类型->将then返回的promise变成成功
+        //         2.返回一个成功的promise->将then返回的promise变成成功
+        //         3.抛出错误(主动或者被动都可以)->将then返回的promise变成失败
+        //         4.返回一个失败的promise->将then返回的promise变成失败
+        //     */
+        //     //    return data+2
+        //     return Promise.resolve(3)
+        //     // throw new Error(666)
+        //     // return Promise.reject(999)
+        // },(error)=>{
+        //     console.log('error',error)
+        //     // return Promise.reject(error)
+        // })
+
+        // .then((data1)=>{
+        //     console.log('data1',data1)
+        // },(error1)=>{
+        //     console.log('error1',error1)
+        // })
+
+        // .catch((error2)=>{
+        //     console.log('error2',error2)
+        // })
+
+        // console.log(promise)
+
+        let promise = new Promise((resolve,reject)=>{
+            setTimeout(()=>{
+                console.log(123);
+                reject(123)
+            },2000)
+        });
+
+        /*await 后面跟一个表达式,结果可以是任意数据,但是不是promise就是去await的意义了
+            如果不是promise,当前代码会被同步执行
+            async的返回值是一个promise对象,如果内部有异步代码,async返回的promise会是pending状态
+            async内部代码执行结束,返回的promise就会变成成功状态
+            async内部代码如果遇到失败的promise或者报错,代码执行立即终止,返回的promise就会变成失败状态,
+
+        */
+        async function getData(){
+            try{
+                let response  = await promise;
+                console.log(1111,response)
+                //    return undefined;
+                return Promise.resolve(333);
+            }catch(e){
+                console.log(2222,e)
+            }
+        }
+        console.log(getData());
+    </script>
+</body>
+</html>
