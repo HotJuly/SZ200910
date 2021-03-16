@@ -1,5 +1,7 @@
 <template>
   <div id="app" class="test">
+    <!-- <h1>App</h1> -->
+    <HelloWorld/>
     <!-- <HelloWorld ref="helloWorld" a='a333' ccc='ccc333' v-model="msg"/> -->
     
     <!-- <HelloWorld :msg.sync="msg">
@@ -14,7 +16,7 @@
       </template>
     </HelloWorld> -->
 
-    <component :is="component"/>
+    <!-- <component :is="component"/> -->
 
     <!-- .sync原理 -->
     <!-- <HelloWorld :msg="msg" @update:msg="value=>msg=value"/> -->
@@ -40,11 +42,25 @@ export default {
       component:HelloWorld
     }
   },
+  beforeCreate(){
+    // console.log('-----------beforeCreate----------',undefined?,undefined,this.$el)
+    console.log('-----------beforeCreate----------',this._data,this.msg,this.$el)
+  },
+  created(){
+    // console.log('-----------created----------',true,true,true)
+    console.log('-----------created----------',this._data.msg,this.msg,this.$el)
+  },
+  beforeMount(){
+    // console.log('-----------beforeMount----------',true,true,true)
+    console.log('-----------beforeMount----------',this._data.msg,this.msg,this.$el)
+  },
   mounted(){
+    // console.log('-----------mounted----------',true,true,true)
+    console.log('-----------mounted----------',this._data.msg,this.msg,this.$el)
     // console.log('App',this)
     // console.log('$children',this.$children)
     // console.log(this.$refs.haha1,this.$refs.helloWorld)
-    this.$refs.helloWorld.$on('handleEmit',this.handleEmit)
+    // this.$refs.helloWorld.$on('handleEmit',this.handleEmit)
   },
   methods:{
     handleEmit(value){

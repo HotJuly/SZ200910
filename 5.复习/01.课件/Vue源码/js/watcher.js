@@ -1,4 +1,10 @@
 function Watcher(vm, expOrFn, cb) {
+  
+  // new Watcher(vm, "msg", function (value, oldValue) {
+  //   textUpdater && textUpdater(node, value, oldValue);
+  // });
+
+  // this=>watcher实例
   // 更新用户界面的函数
   this.cb = cb;
   this.vm = vm;
@@ -10,6 +16,17 @@ function Watcher(vm, expOrFn, cb) {
     this.getter = expOrFn;
   } else {
     this.getter = this.parseGetter(expOrFn.trim());
+    // this.getter = this.parseGetter("msg");
+    // this.getter=function getter(obj) {
+    //   for (var i = 0, len = exps.length; i < len; i++) {
+    //     if (!obj) return;
+    //     // 读取属性 --> 触发数据代理的get --> 触发数据劫持的get
+    //     obj = obj[exps[i]];
+    //     第一次循环:obj = vm["msg"]; obj._data.msg
+    //     第二次循环:obj = vm["msg"]['a'];
+    //   }
+    //   return obj;
+    // };
   }
 
   // 得到当前表达式的值，存在this.value(代表上一次的值)
@@ -56,6 +73,7 @@ Watcher.prototype = {
       // 在dep中保存watcher
       // 有什么用？将来数据发生变化，能通过dep找到所有watcher从而更新
       dep.addSub(this);
+      // dep.addSub(watcher);
       // 在watcher中保存dep
       // 有什么用？ 防止dep重复保存watcher
       this.depIds[dep.id] = dep;
@@ -64,12 +82,19 @@ Watcher.prototype = {
   get: function () {
     // 将Dep.target赋值为当前watcher
     Dep.target = this;
+    // 每次调用get会重新收集dep和watcher之间的关系
+    
+    // Dep.target = watcher;
+    
     var value = this.getter.call(this.vm, this.vm);
+    
     Dep.target = null;
     return value;
   },
 
   parseGetter: function (exp) {
+    // this.getter = this.parseGetter("msg");
+    // "msg$a"
     if (/[^\w.$]/.test(exp)) return;
     // exp person.name
     // exps ['person', 'name']

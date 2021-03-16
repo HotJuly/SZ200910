@@ -1,13 +1,17 @@
 function Compile(el, vm) {
+  // vm.$compile = new Compile("#app", vm);
   // 将vm添加this上，目的为了将来其他函数也能获取vm
+  // this->compiler
   this.$vm = vm;
   // 判断el是否是元素，如果是元素就返回这个元素，不是就获取元素然后返回
   this.$el = this.isElementNode(el) ? el : document.querySelector(el);
+  // this.$el = document.querySelector(el);
 
   // 如果元素存在，开始模板解析
   if (this.$el) {
     // 1. 将元素节点转换成文档碎片节点
     this.$fragment = this.node2Fragment(this.$el);
+    // this.$fragment = this.node2Fragment(document.querySelector(el));
     // 2. 解析模板（解析插值语法和指令语法）
     this.init();
     // 3. 将模板解析后的文档碎片节点添加到el容器中生效
@@ -18,6 +22,7 @@ function Compile(el, vm) {
 Compile.prototype = {
   constructor: Compile,
   node2Fragment: function (el) {
+    // this.$fragment = this.node2Fragment(document.querySelector(el));
     var fragment = document.createDocumentFragment(),
       child;
 
@@ -35,14 +40,20 @@ Compile.prototype = {
   },
 
   compileElement: function (el) {
+    // el->fragment
+    // el-><p>{{msg}}</p>
     // 获取当前元素所有子节点
     var childNodes = el.childNodes,
       me = this;
 
     // 将所有子节点转换成真数组进行遍历
     [].slice.call(childNodes).forEach(function (node) {
+      // node-> <p>{{msg}}</p>
+      // node-> {{msg}}文本节点对象
       // 提取当前节点的文本内容
       var text = node.textContent;
+      // text=>{{msg}}
+
       // 定义一个用来匹配插值语法正则表达式
       var reg = /\{\{(.*)\}\}/;
 
@@ -50,12 +61,14 @@ Compile.prototype = {
       if (me.isElementNode(node)) {
         // 编译指令语法
         me.compile(node);
+        // compiler.compile(<p>{{msg}}</p>);
 
         // 判断当前节点是否是文本节点并且里面文本内容是否有插值语法
       } else if (me.isTextNode(node) && reg.test(text)) {
         // 编译插值语法
         // RegExp.$1.trim() --> 插值语法中的表达式
         me.compileText(node, RegExp.$1.trim());
+        // me.compileText({{msg}}文本节点对象, "msg");
       }
 
       // 判断当前节点是否还有子节点，如果有，就递归编译所有子节点
@@ -66,10 +79,11 @@ Compile.prototype = {
   },
 
   compile: function (node) {
+    // compiler.compile(<p>{{msg}}</p>);
     // 获取节点所有属性对象成一个数组  ['v-on:click']
     var nodeAttrs = node.attributes,
       me = this;
-
+    console.log('nodeAttrs',nodeAttrs);
     /*
       v-on:click
         v- 用来判断是否是指令
@@ -79,12 +93,14 @@ Compile.prototype = {
     */
     // 遍历
     [].slice.call(nodeAttrs).forEach(function (attr) {
+      // attr->v-on:click->属性节点对象
       // attr 就是单个属性对象
-      // attrName 属性名 v-on:click
+      // attrName 标签属性名 v-on:click
       var attrName = attr.name;
       // 判断当前属性是否是指令属性，如果是就要解析，如果不是就啥也不管
       if (me.isDirective(attrName)) {
-        // 获取属性值 --> 指令表达式 handleClick
+        // 获取属性值 --> 指令表达式 "handleClick"
+
         var exp = attr.value;
         // 截取2位得到 on:click
         var dir = attrName.substring(2);
@@ -92,6 +108,7 @@ Compile.prototype = {
         if (me.isEventDirective(dir)) {
           // 事件处理
           compileUtil.eventHandler(node, me.$vm, exp, dir);
+          // compileUtil.eventHandler(<p>{{msg}}</p>, vm, "handleClick", "on:click");
           // 普通指令 v-text v-html v-class v-model
         } else {
           compileUtil[dir] && compileUtil[dir](node, me.$vm, exp);
@@ -106,7 +123,9 @@ Compile.prototype = {
   // node 文本节点
   // exp 表达式
   compileText: function (node, exp) {
+    // me.compileText({{msg}}文本节点对象, "msg");
     compileUtil.text(node, this.$vm, exp);
+    // compileUtil.text({{msg}}文本节点对象, vm, "msg");
   },
 
   isDirective: function (attr) {
@@ -130,7 +149,9 @@ Compile.prototype = {
 var compileUtil = {
   // v-text 和 插值语法
   text: function (node, vm, exp) {
+    // compileUtil.text({{msg}}文本节点对象, vm, "msg");
     this.bind(node, vm, exp, "text");
+    // this.bind({{msg}}文本节点对象, vm, "msg", "text");
   },
   // v-html
   html: function (node, vm, exp) {
@@ -163,18 +184,26 @@ var compileUtil = {
   // exp 表达式
   // dir text
   bind: function (node, vm, exp, dir) {
+    // this.bind({{msg}}文本节点对象, vm, "msg", "text");
     // 取出更新函数 textUpdater
     var updaterFn = updater[dir + "Updater"];
+    // var updaterFn = updater["textUpdater"];
 
     // this._getVMVal(vm, exp) 获取表达式的值
     // 调用更新函数 textUpdater 来更新节点内容
     updaterFn && updaterFn(node, this._getVMVal(vm, exp));
+    // updaterFn && updaterFn({{msg}}文本节点对象, this._getVMVal(vm, "msg"));
+    // updaterFn && updaterFn({{msg}}文本节点对象, "hello MVVM");
 
     // 所有指令（除了事件指令）和插值语法都有watcher
     // 第三个参数是cb，更新用户界面方法
     new Watcher(vm, exp, function (value, oldValue) {
       updaterFn && updaterFn(node, value, oldValue);
     });
+    
+    // new Watcher(vm, "msg", function (value, oldValue) {
+    //   textUpdater && textUpdater(node, value, oldValue);
+    // });
   },
 
   // 事件处理
@@ -184,10 +213,12 @@ var compileUtil = {
   // exp 指令表达式 handleClick
   // dir 指令 on:click
   eventHandler: function (node, vm, exp, dir) {
+    // compileUtil.eventHandler(<p>{{msg}}</p>, vm, "handleClick", "on:click");
     // 获取事件名 click
     var eventType = dir.split(":")[1],
       // 获取事件回调函数
       fn = vm.$options.methods && vm.$options.methods[exp];
+      // fn = vm.$options.methods && vm.$options.methods["handleClick"];
 
     if (eventType && fn) {
       // 给元素绑定事件
@@ -195,6 +226,8 @@ var compileUtil = {
       // fn.bind(vm)会返回一个新函数，新函数的this会改变
       // 所以在vue中所有事件回调函数的this指向vm
       node.addEventListener(eventType, fn.bind(vm), false);
+      // <p>{{msg}}</p>.addEventListener("click", fn.bind(vm), false);
+
     }
   },
 
@@ -204,17 +237,19 @@ var compileUtil = {
    * @param {*} exp 表达式
    */
   _getVMVal: function (vm, exp) {
+    // this._getVMVal(vm, "msg")
+    // 测试:this._getVMVal(vm, "msg.a")
     // val --> vm
     var val = vm;
-    // exp --> person.name
-    // ['person', 'name']
+
+    // msg.a=>["msg","a"]
     exp = exp.split(".");
     exp.forEach(function (k) {
       /*
-                第一次： k --> person
-                    val[k] --> vm['person'] --> val赋值person对象
-                第二次： k --> name
-                    val[k] --> person['name'] --> val赋值jack
+                第一次： k --> msg
+                    val[k] --> vm['msg'] --> val赋值msg对象
+                第二次： k --> a
+                    val[k] --> msg['a'] --> val赋值"hello MVVM"
             */
       val = val[k];
     });
@@ -237,8 +272,12 @@ var compileUtil = {
 
 var updater = {
   textUpdater: function (node, value) {
+    // updaterFn({{msg}}文本节点对象, "hello MVVM");
     // 将节点的文本内容，赋值成表达式的值
+    // dom.innerText
+    //beforeMount执行位置
     node.textContent = typeof value == "undefined" ? "" : value;
+    //mounted执行位置
   },
 
   htmlUpdater: function (node, value) {

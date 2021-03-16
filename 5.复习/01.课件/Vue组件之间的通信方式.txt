@@ -42,3 +42,7 @@
 	1)默认插槽:父组件在子组件标签中间传入template,子组件想要显示这个template,可以使用slot组件进行占位
 	2)具名插槽:在父组件传入template的时候,添加v-slot:名称,子组件使用slot组件的时候,添加标签属性name="名称"即可
 	3)作用域插槽:在具名插槽的基础上,子组件给通过标签属性给slot组件传递数据,父组件template中使用v-slot:名称="变量名"(该变量类似于props)
+
+7.Vuex	
+
+8.Vue.observable+Vue.prototype(简化版Vuex)

@@ -1,0 +1,32 @@
+Vue一共有11个生命周期钩子
+三个阶段
+
+
+初始化阶段(首次渲染)
+beforeCreate
+created
+	created之前才刚注入数据代理和数据劫持,并没有进行模版解析和创建真实DOM
+	可以做一些不操作真实DOM的事情(例如:发送请求)
+beforeMount
+	beforeMounted之前created之后,主要是在将template编译成render函数
+mounted
+	mounted之前创建虚拟DOM,并且生成真实DOM,然后挂载到页面中
+	操作真实DOM(例如:创建轮播图实例,创建滑动库实例等,发送请求,消息订阅)
+
+更新阶段(更新视图)
+beforeUpdate
+updated
+	beforeUpdate之后updated之前,创建新的虚拟DOM树,并与旧的虚拟DOM树进行对比,生成新的真实DOM树(diff算法过程)
+	操作真实DOM(刷新轮播图实例,刷新滑动库实例)
+
+卸载阶段
+beforeDestroy
+	清除定时器,取消消息订阅,解绑事件(解绑的是自己绑定的原生DOM事件)
+destroyed
+
+keep-alive(该组件会缓存当前内部组件实例,也就是说组件不会卸载,也就没办法再次挂载)
+activated
+deactivated
+
+捕获报错(用于捕获子孙组件的报错)
+errorCaptured

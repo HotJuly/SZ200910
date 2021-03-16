@@ -1,32 +1,34 @@
 1.什么是虚拟DOM
 数据类型:对象
-他的作用就是简化DOM的结构
-template:"<div class="wrap"><span>123</span></div>"
-let obj ={
-	tag:"div",
-	class:"wrap",
-	children:[
-		{
-			tag:"span",
-			class:"",
-			children:[],
-			text:"123"
-		}
-		]
-}
 
 2.虚拟DOM和真实DOM的区别
-真实DOM->页面上标签所对应(映射)的js对象->我们去操作这个js对象,dom.className="wrap"
-虚拟DOM->他也是在映射某个标签,但是操作他无法控制页面上标签的属性->Vue会通过document.createElement创建真实DOM
-let div=document.createElement(obj.tag);
-div.className=obj.class;
-children数组中有元素,递归创建真实DOM
+真实DOM
+	粗略了解:html标签
+	实际上,开发者希望通过javascript代码去控制页面标签的展示效果
+	真实DOM也是一个对象,当我们操作真实DOM的属性,会影响到页面标签的变化
+	真实DOM与标签一一对应,互相映射
+虚拟DOM
+	他只是一个普普通通的js对象,修改他无法直接影响到页面展示效果
 
-操作真实DOM很有可能导致页面进行重绘重排,性能极低
-操作虚拟DOM不会导致页面进行重绘重排,性能相当高
+3.明明有真实DOM,为什么还需要设计虚拟DOM?
+	渲染(10次) > js计算(10次)
+	需求:修改页面上多个节点的样式,以及内容
+	如果是真实DOM,直接操作性能过低,虚拟DOM存储于内存中,可以先计算出最终结果,一次性渲染(宁愿js多计算一会儿,也不愿意页面频繁渲染)
+	
+	真实DOM自身属性太多(大部分都没用),体量太大(占用内存太大了)
+	虚拟DOM自身属性较少(只保留所需的几个属性),体量较小(占用内存较少)
 
-真实DOM体量较大,无用属性太多	->占用内存较大
-虚拟DOM体量较小,无用属性较少->占用内存较小
+4.虚拟DOM到底是什么
+	将标签映射成为虚拟DOM
+	 <div id="app">123</div>
+	obj={
+		tag:"div",
+		id:"app",
+		text:"123",
+		children:[]
+	}
 
-
-
+	通过虚拟DOM创建真实DOM
+	var div = document.createElement(obj.tag);
+	div.id = obj.id;
+	div.innerText=obj.text

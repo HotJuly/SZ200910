@@ -1,12 +1,11 @@
 <template>
   <div class="hello">
-    <h1 @click="handleClick">{{ a.name }}</h1>
-    <h1 v-once>msg:{{ msg }}</h1>
-    <slot name="default"></slot>
-    <slot name="juming"></slot>
-    <slot name="scope" :msg1="msg1"></slot>
-    <!-- <input type="text" v-model="value"> -->
-    <!-- <input type="text" @input="handleInput" :value="msg123"> -->
+    <ul>
+      <li v-for="(item,index) in arr" :key="index">
+        <span>{{item}}</span><input type="text" />
+      </li>
+    </ul>
+    <button @click="handleClick">插入</button>
   </div>
 </template>
 
@@ -15,44 +14,17 @@ import Vue from 'vue'
 export default {
   data(){
     return {
-      a:{
-        name:"123"
-      },
-      msg1:"作用域"
-      // b:3,
-      // c:3,
-      // name1:"watch"
+      arr:[1,2,3,4,5]
     }
   },
-  props:["msg"],
   methods:{
     // handleInput(event){
     //   this.$emit('input666',event.target.value)
     // }
-  },
-  // model:{
-  //   prop:"msg123",
-  //   event:"input666"
-  // },
-  mounted(){
-    // console.log('$el',this.$parent)
-    // console.log(this.$listeners)
-    // this.$watch(function(){
-    //   return this.name1+this.b
-    // })
-  },
-  methods:{
     handleClick(){
-      // this.$emit('handleEmit',"666")
-      this.$emit('update:msg',"666");
-      // this.$destroy();
+      this.arr.splice(2,0,this.arr.length+1)
     }
-  }
-  // watch:{
-    // msg123(){
-    //   ....
-    // }
-  // }
+  },
 }
 </script>
 
