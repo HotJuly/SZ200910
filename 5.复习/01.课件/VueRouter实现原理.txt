@@ -1,0 +1,54 @@
+1.VueRouter提供的东西
+	组件
+		1.router-view
+		2.router-link->底层还是使用了编程式导航(通过js代码控制跳转)
+	全局对象
+		1.$route
+		2.$router
+	构造函数
+		VueRouter
+
+2.VueRouter的功能
+	前端路由:路由路径和路由组件之间的映射关系
+	说白了,当路由路径发生变化,router-view需要显示对应的路由组件
+	问题:如何知道哪个组件是对应当前路径的路由组件
+	思路:当我们创建VueRouter实例的时候,会传入routes数组,内部就是一个一个的路由对象(内部具有path和component)
+		import Home from '@component/Home/Home.vue'
+		import Login from '@component/Login/Login.vue'
+		routes:[
+			{
+				path:"/home",
+				component:Home
+			},
+			{
+				path:"/login",
+				component:Login
+			}
+		]
+		假如当前的路由路径为:"/home"=>变量名pathName
+		let route = routes.find((route)=>route.path===pathName);
+		let {component} = route;
+		
+		将routes进行处理,转换数据结构
+		routesObj={
+			"/home":Home,
+			"/login":Login
+		}
+		let component = routesObj[pathName]
+
+		显示路由组件->router-view
+
+	问题二:怎么去控制地址栏中的地址发生变化
+		hash模式:底层通过window.location.hash="/login"
+			好处:
+				1.兼容性高
+		histroy模式:底层通过window.history.pushState("","","/login")=>这个就是$router.push(url)
+			好处:
+				1.兼容性差(h5新特性)
+				2.可以操作浏览器历史记录
+	
+	问题三:router-view怎么去监视当前地址显示对应的组件
+		router-view只会显示当前$route.path所对应的组件
+		它知道$route.path发生变化.从而重新渲染自己
+		router-view其实不知道地址栏发生变化,他只是因为$route.path是响应式属性,
+		router-view中使用到该属性了,该属性发生变化,组件会重新渲染

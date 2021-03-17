@@ -1,0 +1,15 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+#app {
+  width: 200px;
+  height: 200px;
+  background-color: gray;
+  border: 1px solid;
+}
+#app #box {
+  width: 200px;
+  border: 1px solid;
+}
+
